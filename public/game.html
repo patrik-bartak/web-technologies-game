@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="stylesheets/gamestyle.css">
+    <title>Game</title>
+</head>
+<body>
+    <main>
+        <div class="left-stat">
+            <div class="header">
+                <form action="splash.html">
+                    <button type="submit">Leave game</button>
+                </form>
+            </div>
+            <p id="time-elapsed" style="font-size: 24px">
+            </p>
+            <br>
+            <br>
+            <br>
+            <br>
+            <h1 id="win-message">
+                [Your name/Opponent's name] wins the game
+            </h1>
+        </div>
+        <div class="game-screen">
+            <div class="turn-switch">
+                <p style="font-size: 24px">
+                    <span id="your-turn">Your turn |</span><span id="opponent-turn" class="turn-highlight">| Opponent's turn</span>
+                </p>
+            </div>
+            <div class="screen-grid">
+                <div class="grid-slot" id="slot-0-5"></div>
+                <div class="grid-slot" id="slot-1-5"></div>
+                <div class="grid-slot" id="slot-2-5"></div>
+                <div class="grid-slot" id="slot-3-5"></div>
+                <div class="grid-slot" id="slot-4-5"></div>
+                <div class="grid-slot" id="slot-5-5"></div>
+                <div class="grid-slot" id="slot-6-5"></div>
+
+                <div class="grid-slot" id="slot-0-4"></div>
+                <div class="grid-slot" id="slot-1-4"></div>
+                <div class="grid-slot" id="slot-2-4"></div>
+                <div class="grid-slot" id="slot-3-4"></div>
+                <div class="grid-slot" id="slot-4-4"></div>
+                <div class="grid-slot" id="slot-5-4"></div>
+                <div class="grid-slot" id="slot-6-4"></div>
+
+                <div class="grid-slot" id="slot-0-3"></div>
+                <div class="grid-slot" id="slot-1-3"></div>
+                <div class="grid-slot" id="slot-2-3"></div>
+                <div class="grid-slot" id="slot-3-3"></div>
+                <div class="grid-slot" id="slot-4-3"></div>
+                <div class="grid-slot" id="slot-5-3"></div>
+                <div class="grid-slot" id="slot-6-3"></div>
+
+                <div class="grid-slot" id="slot-0-2"></div>
+                <div class="grid-slot" id="slot-1-2"></div>
+                <div class="grid-slot" id="slot-2-2"></div>
+                <div class="grid-slot" id="slot-3-2"></div>
+                <div class="grid-slot" id="slot-4-2"></div>
+                <div class="grid-slot" id="slot-5-2"></div>
+                <div class="grid-slot" id="slot-6-2"></div>
+
+                <div class="grid-slot" id="slot-0-1"></div>
+                <div class="grid-slot" id="slot-1-1"></div>
+                <div class="grid-slot" id="slot-2-1"></div>
+                <div class="grid-slot" id="slot-3-1"></div>
+                <div class="grid-slot" id="slot-4-1"></div>
+                <div class="grid-slot" id="slot-5-1"></div>
+                <div class="grid-slot" id="slot-6-1"></div>
+
+                <div class="grid-slot" id="slot-0-0"></div>
+                <div class="grid-slot" id="slot-1-0"></div>
+                <div class="grid-slot" id="slot-2-0"></div>
+                <div class="grid-slot" id="slot-3-0"></div>
+                <div class="grid-slot" id="slot-4-0"></div>
+                <div class="grid-slot" id="slot-5-0"></div>
+                <div class="grid-slot" id="slot-6-0"></div>
+            </div>
+        </div>
+        <div class="right-stat">
+            <div class="header">
+                <button type="button">Some buttons here?</button>
+            </div>
+            <div class="player">
+                <p style="font-size: 24px">
+                    <span style="border-bottom: red 2px solid;">[You]</span>
+                </p>
+            </div>
+            <div class="vs">
+                <p style="font-size: 24px">
+                    vs
+                </p>
+            </div>
+            <div class="opponent">
+                <p style="font-size: 24px">
+                    <span style="border-bottom: yellow 2px solid;">[Opponent]</span>
+                </p>
+            </div>
+        </div>
+        <!-- <div class="stat-screen">
+            <div>
+                <p style="font-size: 24px">
+                    <span style="border-bottom: red 2px solid;">[You]</span> vs <span style="border-bottom: yellow 2px solid;">[Opponent]</span>
+                </p>
+                <p id="time-elapsed">
+                </p>
+                <p style="font-size: 24px">
+                    Your turn |<span style="color: #444;">| Opponent's turn</span>
+                </p>
+                <br>
+                <br>
+                <br>
+                <br>
+                <h1 id="win-message">
+                    [Your name/Opponent's name] wins the game
+                </h1>
+            </div>
+        </div> -->
+    </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="javascripts/script.js"></script>
+</body>
+</html>

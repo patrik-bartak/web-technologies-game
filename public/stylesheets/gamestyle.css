@@ -1,0 +1,150 @@
+::root {
+    --color-tuscan: #F7DBA7;
+    --color-tumbleweed: #F1AB86;
+    --color-deer: #C57B57;
+    --color-green: #1E2D2F;
+    --color-dark-green: #041F1E;
+
+    --primary: #C57B57;
+    --secondary: #F1AB86;
+}
+
+/* Game screen bars on either side */
+.game-screen {
+    flex: 50%;
+    height: 100vh;
+    background-color: #222;
+}
+.turn-switch {
+    text-align: center;
+    color: white;
+}
+
+
+
+.left-stat, .right-stat {
+    flex: 25%;
+    padding: 0 0 77.33px 0;
+    background-color: #222;
+    
+    text-align: center;
+    /* padding-top: 10vh; */
+
+    color: white;
+}
+
+.right-stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.right-stat .player {
+    flex: 40%;
+}
+.right-stat .vs {
+    flex: 20%;
+}
+.right-stat .opponent {
+    flex: 40%;
+}
+
+.right-stat .player p, .right-stat .vs p, .right-stat .opponent p {
+    margin: 0;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Game screen bars on either side */
+.screen-grid {
+    margin: 0 auto;
+    height: 460px;
+    width: 536.6px;
+    background-color: #1E2D2F;
+    border: #041F1E 1vh solid;
+
+    display: grid;
+    grid-gap: 14px;
+    padding: 14px;
+    grid-template-columns: auto auto auto auto auto auto auto;
+}
+
+.grid-slot {
+    background-color: rgb(38, 48, 49);
+    border: 1px solid black;
+    border-radius: 20%;
+}
+
+
+
+.header {
+    display: block;
+    height: calc(27.33px + 48px);
+    width: 100%;
+    margin: 24px 0;
+}
+body {
+    margin: 0px;
+    height: 100vh;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+button {
+    background-color: #C57B57;
+    color: black;
+    padding: 6px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: 4px solid #C57B57;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+button:hover {
+    border: 4px solid #F1AB86;
+    cursor: pointer;
+}
+a {
+    text-decoration: none;
+    background-color: #C57B57;
+    color: black;
+    padding: 6px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: 4px solid #C57B57;
+}
+
+a:hover {
+    border: 4px solid #F1AB86;
+}
+
+main {
+    display: flex;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+.turn-highlight {
+    color: #444 !important;
+}
+#your-turn {
+    color: red;
+}
+#opponent-turn {
+    color: yellow;
+}
+
+
+.drop-chip {
+    position: relative;
+    animation: drop-chip 0.3s linear;
+} 
+/* gravity: cubic-bezier(0.55, 0.085, 0.68, 0.53) */
+
+@keyframes drop-chip {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+/* @keyframes drop-chip {
+    from {bottom: 500px;}
+    to {bottom: 0px;}
+} */

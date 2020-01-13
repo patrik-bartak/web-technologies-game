@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <title>Splashscreen</title>
+</head>
+<body>
+    <main>
+        <div class="column">
+            <div>
+                <h1>
+                    Connect four
+                </h1>
+                <p style="font-size: 26px">
+                    Currently playing: <span class="currently-playing">[Number of players]</span>
+                </p>
+                <br>
+                <!-- add method="POST" once I figure out how to POST with variables -->
+                <form action="/game.html">
+                    <p style="font-size: 20px; margin-bottom: 10px;">
+                        Enter your name
+                    </p>
+                    <input type="text" name="username">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <button type="submit">Start game</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="javascripts/script.js"></script>
+</body>
+</html>

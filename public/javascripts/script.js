@@ -2,7 +2,15 @@
 // var yellowPositions = [];
 
 // 2D array for chip information
-var board = [["", "", "", "", "", ""], ["", "", "", "", "", ""], ["", "", "", "", "", ""], ["", "", "", "", "", ""], ["", "", "", "", "", ""], ["", "", "", "", "", ""], ["", "", "", "", "", ""]];
+var board = [
+    ["", "", "", "", "", ""], 
+    ["", "", "", "", "", ""], 
+    ["", "", "", "", "", ""], 
+    ["", "", "", "", "", ""], 
+    ["", "", "", "", "", ""], 
+    ["", "", "", "", "", ""], 
+    ["", "", "", "", "", ""]
+];
 
 // index of the next free row in each column
 var nextFree = [0, 0, 0, 0, 0, 0, 0];
@@ -41,6 +49,7 @@ $(document).ready(function() {
 
         // Updates the visual representation of the board
         updateBoard();
+        console.log(nextFree);
         console.log(isGameWon());
 
         // Checks if a winning scenario has occured after every move
@@ -199,4 +208,17 @@ function isGameWonVertical() {
         inc = 0;
     }
     return false;
+};
+
+
+
+
+var socket = new WebSocket("ws://localhost:3000");
+socket.onmessage = function(event){
+    console.log(event.data);
+}
+
+socket.onopen = function(){
+    socket.send("Hello from the client!");
+    console.log("Sending a first message to the server ...");
 };

@@ -67,12 +67,15 @@
     grid-gap: 14px;
     padding: 14px;
     grid-template-columns: auto auto auto auto auto auto auto;
+    box-shadow: 0px 0px 16px 0px #111;
 }
 
 .grid-slot {
     background-color: rgb(38, 48, 49);
     border: 1px solid black;
-    border-radius: 20%;
+    border-radius: 50%;
+
+    box-shadow: inset 0px 0px 16px 0px rgba(0,0,0,0.75);
 }
 
 
@@ -148,3 +151,4 @@ main {
     from {bottom: 500px;}
     to {bottom: 0px;}
 } */
+

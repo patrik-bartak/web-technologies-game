@@ -71,99 +71,18 @@ function updateBoard() {
     for (let i = 0; i < board.length; i++) {
         for (let j = 0; j < board[i].length; j++) {
             if (board[i][j] == "red") {
-                $("#slot-" + i + "-" + j).css("background-color", "red");
+                let chip = $("#slot-" + i + "-" + j);
+                chip.css("background-color", "red");
+                chip.css("border", "1px solid black");
             }
             if (board[i][j] == "yellow") {
-                $("#slot-" + i + "-" + j).css("background-color", "yellow");
+                let chip = $("#slot-" + i + "-" + j);
+                chip.css("background-color", "yellow");
+                chip.css("border", "1px solid black");
             }
         }
     }
 }
-
-function isGameWon() {
-    return isGameWonHorizontal() || isGameWonVertical() || isGameWonDiagonal1();
-    // return isGameWonDiagonal1();
-}
-
-function isGameWonDiagonal1() {
-    return (
-        board[0][0] && board[1][1] && board[2][2] && board [3][3]
-    ) || (
-        board[1][0] && board[2][1] && board[3][2] && board [4][3]
-    ) || (
-        board[2][0] && board[3][1] && board[4][2] && board [5][3]
-    ) || (
-        board[0][1] && board[1][2] && board[2][3] && board [3][4]
-    ) || (
-        board[1][1] && board[2][2] && board[3][3] && board [4][4]
-    ) || (
-        board[2][1] && board[3][2] && board[4][3] && board [5][4]
-    ) || (
-        board[0][2] && board[1][3] && board[2][4] && board [3][5]
-    ) || (
-        board[1][2] && board[2][3] && board[3][4] && board [4][5]
-    ) || (
-        board[2][2] && board[3][3] && board[4][4] && board [5][5]
-    ) == "red";
-}
-
-function isGameWonDiagonal2() { // not yet flipped from first diagonal
-    return (
-        board[0][0] && board[1][1] && board[2][2] && board [3][3]
-    ) || (
-        board[1][0] && board[2][1] && board[3][2] && board [4][3]
-    ) || (
-        board[2][0] && board[3][1] && board[4][2] && board [5][3]
-    ) || (
-        board[0][1] && board[1][2] && board[2][3] && board [3][4]
-    ) || (
-        board[1][1] && board[2][2] && board[3][3] && board [4][4]
-    ) || (
-        board[2][1] && board[3][2] && board[4][3] && board [5][4]
-    ) || (
-        board[0][2] && board[1][3] && board[2][4] && board [3][5]
-    ) || (
-        board[1][2] && board[2][3] && board[3][4] && board [4][5]
-    ) || (
-        board[2][2] && board[3][3] && board[4][4] && board [5][5]
-    ) == "red";
-}
-
-function isGameWonHorizontal() {
-    let inc = 0;
-    for (let i = 0; i < 6; i++) {
-        for (let j = 0; j < 7; j++) {
-            if (board[j][i] == "red") {
-                inc++
-                if (inc > 3) {
-                    return true;
-                }
-            } else if (board[j][i] == "yellow") {
-                inc = 0;
-            }
-        }
-        inc = 0;
-    }
-    return false;
-}
-
-function isGameWonVertical() {
-    let inc = 0;
-    for (let i = 0; i < 7; i++) {
-        for (let j = 0; j < 6; j++) {
-            if (board[i][j] == "red") {
-                inc++
-                if (inc > 3) {
-                    return true;
-                }
-            } else if (board[j][i] == "yellow") {
-                inc = 0;
-            }
-        }
-        inc = 0;
-    }
-    return false;
-};
 
 function filterID(id) {
     return id.replace("slot-", "").replace("-", "");
@@ -196,4 +115,88 @@ function startTimer() {
     setInterval( function(){
         $("#time-elapsed").html("Time elapsed: " + pad(parseInt(++sec/60,10)) + ":" + pad(sec%60));
     }, 1000);
+};
+
+function isGameWon() {
+    return isGameWonHorizontal() || isGameWonVertical() || isGameWonDiagonal1() || isGameWonDiagonal1();
+}
+
+function isGameWonDiagonal1() {
+    return (
+        board[0][0] == "red" && board[1][1] == "red" && board[2][2] == "red" && board [3][3] == "red"
+    ) || (
+        board[1][0] == "red" && board[2][1] == "red" && board[3][2] == "red" && board [4][3] == "red"
+    ) || (
+        board[2][0] == "red" && board[3][1] == "red" && board[4][2] == "red" && board [5][3] == "red"
+    ) || (
+        board[0][1] == "red" && board[1][2] == "red" && board[2][3] == "red" && board [3][4] == "red"
+    ) || (
+        board[1][1] == "red" && board[2][2] == "red" && board[3][3] == "red" && board [4][4] == "red"
+    ) || (
+        board[2][1] == "red" && board[3][2] == "red" && board[4][3] == "red" && board [5][4] == "red"
+    ) || (
+        board[0][2] == "red" && board[1][3] == "red" && board[2][4] == "red" && board [3][5] == "red"
+    ) || (
+        board[1][2] == "red" && board[2][3] == "red" && board[3][4] == "red" && board [4][5] == "red"
+    ) || (
+        board[2][2] == "red" && board[3][3] == "red" && board[4][4] == "red" && board [5][5] == "red"
+    );
+}
+
+function isGameWonDiagonal2() { // not yet flipped from first diagonal
+    return (
+        board[0][0] == "red" && board[1][1] == "red" && board[2][2] == "red" && board [3][3] == "red"
+    ) || (
+        board[1][0] == "red" && board[2][1] == "red" && board[3][2] == "red" && board [4][3] == "red"
+    ) || (
+        board[2][0] == "red" && board[3][1] == "red" && board[4][2] == "red" && board [5][3] == "red"
+    ) || (
+        board[0][1] == "red" && board[1][2] == "red" && board[2][3] == "red" && board [3][4] == "red"
+    ) || (
+        board[1][1] == "red" && board[2][2] == "red" && board[3][3] == "red" && board [4][4] == "red"
+    ) || (
+        board[2][1] == "red" && board[3][2] == "red" && board[4][3] == "red" && board [5][4] == "red"
+    ) || (
+        board[0][2] == "red" && board[1][3] == "red" && board[2][4] == "red" && board [3][5] == "red"
+    ) || (
+        board[1][2] == "red" && board[2][3] == "red" && board[3][4] == "red" && board [4][5] == "red"
+    ) || (
+        board[2][2] == "red" && board[3][3] == "red" && board[4][4] == "red" && board [5][5] == "red"
+    );
+}
+
+function isGameWonHorizontal() {
+    let inc = 0;
+    for (let i = 0; i < 6; i++) {
+        for (let j = 0; j < 7; j++) {
+            if (board[j][i] == "red") {
+                inc++
+                if (inc > 3) {
+                    return true;
+                }
+            } else if (board[j][i] == "yellow") {
+                inc = 0;
+            }
+        }
+        inc = 0;
+    }
+    return false;
+}
+
+function isGameWonVertical() {
+    let inc = 0;
+    for (let i = 0; i < 7; i++) {
+        for (let j = 0; j < 6; j++) {
+            if (board[i][j] == "red") {
+                inc++
+                if (inc > 3) {
+                    return true;
+                }
+            } else if (board[i][j] == "yellow") {
+                inc = 0;
+            }
+        }
+        inc = 0;
+    }
+    return false;
 };

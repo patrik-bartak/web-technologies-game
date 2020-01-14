@@ -1,10 +1,13 @@
-var redPositions = [];
-var yellowPositions = [];
+// var redPositions = [];
+// var yellowPositions = [];
 
+// 2D array for chip information
 var board = [["", "", "", "", "", ""], ["", "", "", "", "", ""], ["", "", "", "", "", ""], ["", "", "", "", "", ""], ["", "", "", "", "", ""], ["", "", "", "", "", ""], ["", "", "", "", "", ""]];
 
+// index of the next free row in each column
 var nextFree = [0, 0, 0, 0, 0, 0, 0];
 
+// colour of the current turn
 var turn = "red";
 
 // TODO:
@@ -14,10 +17,12 @@ var turn = "red";
 
 
 
-
+// Once the document has finished loading
 $(document).ready(function() {
+    // Hide the win message
     $("#win-message").hide();
 
+    // Highlight the bottom slot in a column whenever you hover over a slot
     $(".grid-slot").hover(function () {
         let xCoord = parseInt(filterID(this.id)[0]);
         $("#slot-" + xCoord + "-" + nextFree[xCoord]).css("border", "1px solid " + turn);
@@ -27,25 +32,25 @@ $(document).ready(function() {
         $("#slot-" + xCoord + "-" + nextFree[xCoord]).css("border", "1px solid black");
     });
 
+    // A player executing their turn
     $(".grid-slot").mousedown(function () {
         let xCoord = parseInt(filterID(this.id)[0]);
 
+        // Adds a chip to the board
         insertAt(xCoord);
 
+        // Updates the visual representation of the board
         updateBoard();
         console.log(isGameWon());
+
+        // Checks if a winning scenario has occured after every move
         if (isGameWon()) {
             $("#win-message").show();
         }
     });
 
-    $("#time-elapsed").html("Time elapsed: 00:00");
-
-    var sec = 0;
-    function pad ( val ) { return val > 9 ? val : "0" + val; }
-    setInterval( function(){
-        $("#time-elapsed").html("Time elapsed: " + pad(parseInt(++sec/60,10)) + ":" + pad(sec%60));
-    }, 1000);
+    // Starts the game timer
+    startTimer();
 });
 
 
@@ -183,3 +188,12 @@ function swapPlayerTurn() {
         turn = "red";
     }
 }
+
+function startTimer() {
+    $("#time-elapsed").html("Time elapsed: 00:00");
+    var sec = 0;
+    function pad ( val ) { return val > 9 ? val : "0" + val; }
+    setInterval( function(){
+        $("#time-elapsed").html("Time elapsed: " + pad(parseInt(++sec/60,10)) + ":" + pad(sec%60));
+    }, 1000);
+};

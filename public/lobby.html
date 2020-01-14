@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="stylesheets/style.css">
-    <title>Splashscreen</title>
+    <title>Game Lobby</title>
 </head>
 <body>
     <main>
@@ -18,18 +18,15 @@
                     Currently playing: <span class="currently-playing">[Number of players]</span>
                 </p>
                 <br>
-                <!-- add method="POST" once I figure out how to POST with variables -->
-                <form action="lobby.html">
-                    <p style="font-size: 20px; margin-bottom: 10px;">
-                        Enter your name
-                    </p>
-                    <input type="text" name="username">
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <button type="submit">Start game</button>
-                </form>
+                <br>
+                <p style="font-size: 26px">
+                    Searching for available players...
+                </p>
+                <div class="loader"></div>
+
+                <br>
+                <br>
+                <a href="game.html">skip</a>
             </div>
         </div>
     </main>

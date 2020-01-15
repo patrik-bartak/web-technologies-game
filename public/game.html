@@ -8,7 +8,24 @@
     <title>Game</title>
 </head>
 <body>
-    <main>
+    <div class="lobby-popup" id="lobby-popup">
+        <div class="name-popup" id="name-popup">
+            <p style="font-size: 20px; margin-bottom: 10px;">
+                Enter your name
+            </p>
+            <input type="text" name="username" id="name-input">
+            <button onclick="submitName();">Submit</button>
+        </div>
+        <div id="loading-popup">
+            <p style="font-size: 26px">
+                Searching for available players...
+            </p>
+            <div class="loader"></div>
+    
+            <br>
+        </div>
+    </div>
+    <main class="main-game-screen">
         <div class="left-stat">
             <div class="header">
                 <form action="splash.html">

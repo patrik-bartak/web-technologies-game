@@ -98,23 +98,8 @@ button:hover {
 
 
 
-.loader {
-    border: 4px solid #ccc;
-    border-top: 4px solid #C57B57;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    animation: spin 1s linear infinite;
-    padding: 0 !important;
-    margin: 0 auto !important;
-}
-
 /* .loader {
     border-top: 16px solid blue;
     border-bottom: 16px solid blue;
 } */
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}

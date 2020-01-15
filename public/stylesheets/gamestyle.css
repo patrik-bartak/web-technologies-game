@@ -152,3 +152,30 @@ main {
     to {bottom: 0px;}
 } */
 
+.loader {
+    border: 4px solid #ccc;
+    border-top: 4px solid #C57B57;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    padding: 0 !important;
+    margin: 0 auto !important;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.lobby-popup {
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -194px;
+    padding: 30px;
+    border: 1px solid black;
+    background-color: #aaa;
+    position: absolute;
+    z-index: 999;
+}
+

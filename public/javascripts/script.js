@@ -28,6 +28,7 @@ var turn = "red";
 // Once the document has finished loading
 $(document).ready(function() {
     // Hide the win message
+    $("#loading-popup").hide();
     $("#win-message").hide();
 
     // Highlight the bottom slot in a column whenever you hover over a slot
@@ -211,14 +212,38 @@ function isGameWonVertical() {
 };
 
 
+function startGame() {
+    $("#lobby-popup").hide();
+};
 
 
-var socket = new WebSocket("ws://localhost:3000");
-socket.onmessage = function(event){
-    console.log(event.data);
+function submitName() {
+    let username = $("#name-input").val();
+    $("#name-popup").hide();
+    $("#loading-popup").show();
+
+    openSocket(username);
 }
 
-socket.onopen = function(){
-    socket.send("Hello from the client!");
-    console.log("Sending a first message to the server ...");
-};
+function openSocket(name) {
+    var socket = new WebSocket("ws://localhost:3000");
+    socket.onopen = function(){
+        let message = {
+            "type": "newPlayer",
+            "data": [name]
+        };
+        socket.send(JSON.stringify(message));
+        console.log("Sending the user's name: " + message);
+    };
+
+    socket.onmessage = function(event){
+        let message = JSON.parse(event.data);
+
+        if (message.type == "startGame") {
+            startGame();
+        }
+
+        console.log(JSON.stringify(message));
+    }
+}
+

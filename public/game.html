@@ -29,7 +29,7 @@
         <div class="left-stat">
             <div class="header">
                 <form action="splash.html">
-                    <button type="submit">Leave game</button>
+                    <button onclick="leaveGame();" type="submit">Leave game</button>
                 </form>
             </div>
             <p id="time-elapsed" style="font-size: 24px">
@@ -104,7 +104,7 @@
             </div>
             <div class="player">
                 <p style="font-size: 24px">
-                    <span style="border-bottom: red 2px solid;">[You]</span>
+                    <span style="border-bottom: red 2px solid;" id="playerOneName">[You]</span>
                 </p>
             </div>
             <div class="vs">
@@ -114,7 +114,7 @@
             </div>
             <div class="opponent">
                 <p style="font-size: 24px">
-                    <span style="border-bottom: yellow 2px solid;">[Opponent]</span>
+                    <span style="border-bottom: yellow 2px solid;" id="playerTwoName">[Opponent]</span>
                 </p>
             </div>
         </div>

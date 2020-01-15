@@ -4,11 +4,16 @@ const express = require("express");
 const http = require("http");
 const websocket = require("ws");
 const bodyParser = require("body-parser");
+const Game = require("./game");
 
 // DATA MODEL /////////////////////////////////////////////////////////////////////////////////////
 
 var ongoingGames = [];
 var playerQueue = [];
+
+// var websocket = {"websocket": game};
+// array of websocket-game pairs
+var websockets = [];
 
 // one option is to create a game object that keeps track of the WebSocket objects 
 // belonging to the game's players. Each WebSocket object receives an id and a Map 
@@ -95,6 +100,11 @@ wss.on("connection", function(ws) {
     // }
     
     ws.on("message", function incoming(messageString) {
+        console.log("ongoingGames" + ongoingGames);
+        console.log("playerQueue" + playerQueue);
+
+
+
         let message = JSON.parse(messageString); // String to object
 
         if (message.type == "newPlayer") { // Sets new player
@@ -102,6 +112,38 @@ wss.on("connection", function(ws) {
             playerQueue.push(newPlayer);
 
             attemptCreateGame();
+        } else if (message.type == "closeGame") {
+            let gameToClose = undefined;
+            let playerToKick = undefined;
+            let otherPlayer = undefined
+
+            for (let i = 0; i < ongoingGames.length; i++) {
+                if (ongoingGames[i].playerOne.websocket == ws) {
+                    gameToClose = ongoingGames[i];
+                    ongoingGames[i].playerTwo.websocket.send(JSON.stringify({
+                        "type": "redirect"
+                    }));
+                } else if (ongoingGames[i].playerTwo.websocket == ws) {
+                    gameToClose = ongoingGames[i];
+                    ongoingGames[i].playerOne.websocket.send(JSON.stringify({
+                        "type": "redirect"
+                    }));
+                }
+            }
+
+            if (gameToClose == undefined) {
+                for (let i = 0; i < playerQueue.length; i++) {
+                    if (playerQueue[i].websocket == ws) {
+                        playerToKick = playerQueue[i];
+                    }
+                }
+                playerToKick.websocket.close();
+                playerQueue.splice(playerQueue.indexOf(playerToKick), 1);
+            } else {
+                gameToClose.playerOne.websocket.close();
+                gameToClose.playerTwo.websocket.close();
+                ongoingGames.splice(ongoingGames.indexOf(gameToClose), 1);
+            }
         }
 
         console.log("[LOG] " + playerQueue[0]);
@@ -111,13 +153,21 @@ wss.on("connection", function(ws) {
 
 function attemptCreateGame() {
     if (playerQueue.length > 1) {
-        let playerOne = playerQueue[0];
-        let playerTwo = playerQueue[1];
+        let playerOne = playerQueue.shift();
+        let playerTwo = playerQueue.shift();
         let newGame = new Game(nextFreeGameID++, playerOne, playerTwo, true);
         ongoingGames.push(newGame);
 
+        // let websocketPair = {
+        //     "playerOne": playerOne.websocket,
+        //     "playerTwo": playerTwo.websocket,
+        //     "game": newGame
+        // };
+
         let message = {
-            "type": "startGame"
+            "type": "startGame",
+            "playerOneName": playerOne.name,
+            "playerTwoName": playerTwo.name
         }
 
         playerOne.websocket.send(JSON.stringify(message));

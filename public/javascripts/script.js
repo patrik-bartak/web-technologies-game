@@ -59,8 +59,7 @@ $(document).ready(function() {
         }
     });
 
-    // Starts the game timer
-    startTimer();
+    $("#time-elapsed").html("Time elapsed: 00:00");
 });
 
 
@@ -119,7 +118,6 @@ function swapPlayerTurn() {
 }
 
 function startTimer() {
-    $("#time-elapsed").html("Time elapsed: 00:00");
     var sec = 0;
     function pad ( val ) { return val > 9 ? val : "0" + val; }
     setInterval( function(){
@@ -212,10 +210,21 @@ function isGameWonVertical() {
 };
 
 
-function startGame() {
+function startGame(message) {
     $("#lobby-popup").hide();
+    startTimer();
+    $("#playerOneName").text(message.playerOneName);
+    $("#playerTwoName").text(message.playerTwoName);
 };
-
+function leaveGame() {
+    if (socket !== undefined) {
+        let message = {
+            "type": "closeGame"
+        };
+        socket.send(JSON.stringify(message));
+        console.log("Sending closeGame");
+    }
+}
 
 function submitName() {
     let username = $("#name-input").val();
@@ -225,22 +234,27 @@ function submitName() {
     openSocket(username);
 }
 
+var socket;
+
 function openSocket(name) {
-    var socket = new WebSocket("ws://localhost:3000");
+    socket = new WebSocket("ws://localhost:3000");
+
     socket.onopen = function(){
         let message = {
             "type": "newPlayer",
             "data": [name]
         };
         socket.send(JSON.stringify(message));
-        console.log("Sending the user's name: " + message);
+        console.log("Sending the user's name");
     };
 
     socket.onmessage = function(event){
         let message = JSON.parse(event.data);
 
         if (message.type == "startGame") {
-            startGame();
+            startGame(message);
+        } else if (message.type == "redirect") {
+            window.location.replace("/");
         }
 
         console.log(JSON.stringify(message));

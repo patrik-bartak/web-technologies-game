@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <title>Splashscreen</title>
+</head>
+<body>
+    <main>
+        <div class="column">
+            <div>
+                <h1>
+                    Connect four
+                </h1>
+                <p style="font-size: 26px">
+                    <!-- Currently playing: <span class="currently-playing">[Number of players]</span> -->
+                    <%= gamesInitialized %>
+                    <%if (gamesInitialized != 1) { %>
+                        games
+                    <% } else { %>
+                        game
+                    <% } %>
+                    initialized since 
+                    <%= gamesSince %>
+                    <br>
+                    <%= currentlyPlaying %> 
+                    <%if (currentlyPlaying != 1) { %>
+                        games
+                    <% } else { %>
+                        game
+                    <% } %>
+                    currently being played
+                    <br>
+                    <%= playersInQueue %> 
+                    <%if (playersInQueue != 1) { %>
+                        players
+                    <% } else { %>
+                        player
+                    <% } %>
+                    in the queue
+                </p>
+                <br>
+                <br>
+                <a href="game">Start Game</a>
+            </div>
+        </div>
+    </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- <script src="javascripts/script.js"></script> -->
+</body>
+</html>

@@ -128,12 +128,7 @@ main {
 .turn-highlight {
     color: #444 !important;
 }
-#your-turn {
-    color: red;
-}
-#opponent-turn {
-    color: yellow;
-}
+
 
 
 .drop-chip {

@@ -15,6 +15,7 @@
             </p>
             <input type="text" name="username" id="name-input">
             <button onclick="submitName();">Submit</button>
+            <p style="font-size: 20px; margin-bottom: 10px;color: red;" id="name-submit-check"></p>
         </div>
         <div id="loading-popup">
             <p style="font-size: 26px">
@@ -39,13 +40,16 @@
             <br>
             <br>
             <h1 id="win-message">
-                [Your name/Opponent's name] wins the game
+                You win the game
+            </h1>
+            <h1 id="lose-message">
+                You lose the game
             </h1>
         </div>
         <div class="game-screen">
             <div class="turn-switch">
                 <p style="font-size: 24px">
-                    <span id="your-turn">Your turn |</span><span id="opponent-turn" class="turn-highlight">| Opponent's turn</span>
+                    <span id="your-turn">Your turn |</span><span id="opponent-turn">| Opponent's turn</span>
                 </p>
             </div>
             <div class="screen-grid">
@@ -103,8 +107,8 @@
                 <button type="button">Some buttons here?</button>
             </div>
             <div class="player">
-                <p style="font-size: 24px">
-                    <span style="border-bottom: red 2px solid;" id="playerOneName">[You]</span>
+                <p style="font-size: 30px">
+                    <span style="color: red;" id="playerOneName">[You]</span>
                 </p>
             </div>
             <div class="vs">
@@ -113,8 +117,8 @@
                 </p>
             </div>
             <div class="opponent">
-                <p style="font-size: 24px">
-                    <span style="border-bottom: yellow 2px solid;" id="playerTwoName">[Opponent]</span>
+                <p style="font-size: 30px">
+                    <span style="color: yellow;" id="playerTwoName">[Opponent]</span>
                 </p>
             </div>
         </div>

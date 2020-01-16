@@ -2,27 +2,13 @@
 // var yellowPositions = [];
 
 // 2D array for chip information
-var board = [
-    ["", "", "", "", "", ""], 
-    ["", "", "", "", "", ""], 
-    ["", "", "", "", "", ""], 
-    ["", "", "", "", "", ""], 
-    ["", "", "", "", "", ""], 
-    ["", "", "", "", "", ""], 
-    ["", "", "", "", "", ""]
-];
+var board;
 
 // index of the next free row in each column
-var nextFree = [0, 0, 0, 0, 0, 0, 0];
+var nextFree;
 
 // colour of the current turn
-var turn = "red";
-
-// TODO:
-// Make the turns work online
-// Make the game actually know when an individual player has won
-// Block one players action's while it is the other player's turn
-
+var turn;
 
 
 // Once the document has finished loading
@@ -44,9 +30,23 @@ $(document).ready(function() {
     // A player executing their turn
     $(".grid-slot").mousedown(function () {
         let xCoord = parseInt(filterID(this.id)[0]);
+        if (nextFree[xCoord] < 6) {
 
-        // Adds a chip to the board
-        insertAt(xCoord);
+            let message = {
+                "type": "moveMade",
+                "x": xCoord
+            };
+            socket.send(JSON.stringify(message));
+            console.log("Sending x value of move");
+
+            // Adds a chip to the board
+            // turn can be red or yellow depending on turn
+            board[xCoord][nextFree[xCoord]] = turn;
+            
+            $("#slot-" + xCoord + "-" + nextFree[xCoord]).toggleClass("drop-chip");
+            nextFree[xCoord]++;
+            swapPlayerTurn();
+        }
 
         // Updates the visual representation of the board
         updateBoard();
@@ -62,19 +62,6 @@ $(document).ready(function() {
     $("#time-elapsed").html("Time elapsed: 00:00");
 });
 
-
-
-// $(".grid-slot").hover(function () {
-//     if ($(this).css("background-color") != "red") {
-//         $(this).css("background-color", "darkred");
-//     }
-// }, function () {
-//     let coords = filterID(this.id)
-//     if (board[coords[0]][coords[1]] != "red") {
-//         $(this).css("background-color", "rgb(38, 48, 49)");
-//     }
-//     updateBoard();
-// });
 
 function updateBoard() {
     for (let i = 0; i < board.length; i++) {
@@ -97,15 +84,115 @@ function filterID(id) {
     return id.replace("slot-", "").replace("-", "");
 }
 
-function insertAt(x) {
-    if (nextFree[x] < 6) { // turn can be red or yellow depending on turn
-        board[x][nextFree[x]] = turn;
-        
-        $("#slot-" + x + "-" + nextFree[x]).toggleClass("drop-chip");
-        nextFree[x]++;
-        swapPlayerTurn();
+
+
+
+
+var socket;
+
+function openSocket(name) {
+    socket = new WebSocket("ws://localhost:3000");
+
+    socket.onopen = function(){
+        sendName(socket, name);
+    };
+
+    socket.onmessage = function(event){
+        let message = JSON.parse(event.data);
+
+        if (message.type == "startGame") {
+            startGame(message);
+        } else if (message.type == "redirectToRoot") {
+            window.location.replace("/");
+        }
+
+        console.log(JSON.stringify(message));
     }
 }
+
+function sendName(socket, name) {
+    let message = {
+        "type": "newPlayer",
+        "data": [name]
+    };
+    socket.send(JSON.stringify(message));
+    console.log("Sending the user's name");
+};
+
+function startGame(message) {
+    $("#lobby-popup").hide();
+    startTimer();
+    $("#playerOneName").text(message.playerOneName);
+    $("#playerTwoName").text(message.playerTwoName);
+
+    // let game = message.game;
+    board = message.board;
+    nextFree = message.nextFree;
+    turn = message.turn;
+};
+
+function leaveGame() {
+    if (socket !== undefined) {
+        let message = {
+            "type": "closeGame"
+        };
+        socket.send(JSON.stringify(message));
+        console.log("Sending closeGame");
+    }
+}
+
+function submitName() {
+    let username = $("#name-input").val();
+    $("#name-popup").hide();
+    $("#loading-popup").show();
+
+    openSocket(username);
+}
+
+function startTimer() {
+    var sec = 0;
+    function pad ( val ) { return val > 9 ? val : "0" + val; }
+    setInterval( function(){
+        $("#time-elapsed").html("Time elapsed: " + pad(parseInt(++sec/60,10)) + ":" + pad(sec%60));
+    }, 1000);
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function swapPlayerTurn() {
     $("#your-turn").toggleClass("turn-highlight");
@@ -116,14 +203,6 @@ function swapPlayerTurn() {
         turn = "red";
     }
 }
-
-function startTimer() {
-    var sec = 0;
-    function pad ( val ) { return val > 9 ? val : "0" + val; }
-    setInterval( function(){
-        $("#time-elapsed").html("Time elapsed: " + pad(parseInt(++sec/60,10)) + ":" + pad(sec%60));
-    }, 1000);
-};
 
 function isGameWon() {
     return isGameWonHorizontal() || isGameWonVertical() || isGameWonDiagonal1() || isGameWonDiagonal1();
@@ -208,56 +287,3 @@ function isGameWonVertical() {
     }
     return false;
 };
-
-
-function startGame(message) {
-    $("#lobby-popup").hide();
-    startTimer();
-    $("#playerOneName").text(message.playerOneName);
-    $("#playerTwoName").text(message.playerTwoName);
-};
-function leaveGame() {
-    if (socket !== undefined) {
-        let message = {
-            "type": "closeGame"
-        };
-        socket.send(JSON.stringify(message));
-        console.log("Sending closeGame");
-    }
-}
-
-function submitName() {
-    let username = $("#name-input").val();
-    $("#name-popup").hide();
-    $("#loading-popup").show();
-
-    openSocket(username);
-}
-
-var socket;
-
-function openSocket(name) {
-    socket = new WebSocket("ws://localhost:3000");
-
-    socket.onopen = function(){
-        let message = {
-            "type": "newPlayer",
-            "data": [name]
-        };
-        socket.send(JSON.stringify(message));
-        console.log("Sending the user's name");
-    };
-
-    socket.onmessage = function(event){
-        let message = JSON.parse(event.data);
-
-        if (message.type == "startGame") {
-            startGame(message);
-        } else if (message.type == "redirect") {
-            window.location.replace("/");
-        }
-
-        console.log(JSON.stringify(message));
-    }
-}
-

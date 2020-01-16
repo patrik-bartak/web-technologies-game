@@ -13,7 +13,7 @@ var playerQueue = [];
 
 // var websocket = {"websocket": game};
 // array of websocket-game pairs
-var websockets = [];
+// var websockets = [];
 
 // one option is to create a game object that keeps track of the WebSocket objects 
 // belonging to the game's players. Each WebSocket object receives an id and a Map 
@@ -21,16 +21,6 @@ var websockets = [];
 // can determine quickly for which WebSockets the received messages are meant.
 
 var nextFreeGameID = 0;
-
-// int, Object, Object, boolean
-class Game {
-    constructor(gameID, playerOne, playerTwo, ongoing) {
-        this.gameID = gameID;
-        this.playerOne = playerOne;
-        this.playerTwo = playerTwo;
-        this.ongoing = ongoing;
-    }
-}
 
 // String, WebSocket, String
 class Player {
@@ -40,8 +30,6 @@ class Player {
         this.status = status;
     }
 }
-
-
 
 // SERVER /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -90,9 +78,7 @@ wss.on("connection", function(ws) {
     //     ws.close();
     //     console.log("Connection state: "+ ws.readyState);
     // }, 000);
-
-    ws.send(JSON.stringify({message: "This is a message"}));
-    ws.send(JSON.stringify(playerQueue));
+    
     // ws.send("Connection opened");
 
     // if (playerQueue.length > 1) {
@@ -100,50 +86,33 @@ wss.on("connection", function(ws) {
     // }
     
     ws.on("message", function incoming(messageString) {
+
+
+        // TODO: Figure out efficient way of associating websocket with game without circular references
+        // TODO: Keep going in implementing websocket and moving game logic onto the server-side
+        // TODO: Refactor client-side code and make it more systematic
+
+
         console.log("ongoingGames" + ongoingGames);
         console.log("playerQueue" + playerQueue);
-
-
 
         let message = JSON.parse(messageString); // String to object
 
         if (message.type == "newPlayer") { // Sets new player
-            let newPlayer = new Player(message.data[0], ws, "waiting");
-            playerQueue.push(newPlayer);
-
-            attemptCreateGame();
+            newPlayer(ws, message);
+            
         } else if (message.type == "closeGame") {
-            let gameToClose = undefined;
-            let playerToKick = undefined;
-            let otherPlayer = undefined
+            closeGame(ws, message);
+        } else if (message.type == "moveMade") {
 
-            for (let i = 0; i < ongoingGames.length; i++) {
-                if (ongoingGames[i].playerOne.websocket == ws) {
-                    gameToClose = ongoingGames[i];
-                    ongoingGames[i].playerTwo.websocket.send(JSON.stringify({
-                        "type": "redirect"
-                    }));
-                } else if (ongoingGames[i].playerTwo.websocket == ws) {
-                    gameToClose = ongoingGames[i];
-                    ongoingGames[i].playerOne.websocket.send(JSON.stringify({
-                        "type": "redirect"
-                    }));
-                }
+            ws.game.board[message.x][ws.game.nextFree[message.x]++] = ws.game.turn;
+            if (ws.game.turn == "red") {
+                ws.game.turn = "yellow";
+            } else if (ws.game.turn == "yellow") {
+                ws.game.turn = "red";
             }
-
-            if (gameToClose == undefined) {
-                for (let i = 0; i < playerQueue.length; i++) {
-                    if (playerQueue[i].websocket == ws) {
-                        playerToKick = playerQueue[i];
-                    }
-                }
-                playerToKick.websocket.close();
-                playerQueue.splice(playerQueue.indexOf(playerToKick), 1);
-            } else {
-                gameToClose.playerOne.websocket.close();
-                gameToClose.playerTwo.websocket.close();
-                ongoingGames.splice(ongoingGames.indexOf(gameToClose), 1);
-            }
+            console.log("Move registered");
+            console.log(ws.game.board);
         }
 
         console.log("[LOG] " + playerQueue[0]);
@@ -151,27 +120,68 @@ wss.on("connection", function(ws) {
 });
 
 
-function attemptCreateGame() {
-    if (playerQueue.length > 1) {
-        let playerOne = playerQueue.shift();
-        let playerTwo = playerQueue.shift();
-        let newGame = new Game(nextFreeGameID++, playerOne, playerTwo, true);
-        ongoingGames.push(newGame);
+function newPlayer(ws, message) {
+    let newPlayer = new Player(message.data[0], ws, "waiting"); // Create new player
+    ws.player = newPlayer;
+    playerQueue.push(newPlayer); // Add new player to the queue 
+    if (playerQueue.length > 1) { // If a match can be made, create a new game
+        newGame();
+    }
+}
 
-        // let websocketPair = {
-        //     "playerOne": playerOne.websocket,
-        //     "playerTwo": playerTwo.websocket,
-        //     "game": newGame
-        // };
 
-        let message = {
-            "type": "startGame",
-            "playerOneName": playerOne.name,
-            "playerTwoName": playerTwo.name
+function newGame() {
+    let playerOne = playerQueue.shift();
+    let playerTwo = playerQueue.shift();
+    let newGame = new Game(nextFreeGameID++, playerOne, playerTwo, true);
+    ongoingGames.push(newGame);
+
+    // let websocketPair = {
+    //     "playerOne": playerOne.websocket,
+    //     "playerTwo": playerTwo.websocket,
+    //     "game": newGame
+    // };
+
+    let message = {
+        "type": "startGame",
+        "playerOneName": playerOne.name,
+        "playerTwoName": playerTwo.name,
+        "board": newGame.board,
+        "nextFree": newGame.nextFree,
+        "turn": newGame.turn
+    }
+
+    playerOne.websocket.game = newGame;
+    playerTwo.websocket.game = newGame;
+
+    playerOne.websocket.send(JSON.stringify(message));
+    playerTwo.websocket.send(JSON.stringify(message));
+}
+
+function closeGame(ws, message) {
+    let redirectMessage = JSON.stringify({
+        "type": "redirectToRoot"
+    })
+
+    if (ws.game === undefined) {
+        console.log("Redirecting single player");
+        ws.close();
+        playerQueue.splice(playerQueue.indexOf(ws.player), 1);
+    } else {
+        console.log("Redirecting entire game");
+        let gameToClose = ws.game;
+
+        if (ws.game.playerOne.websocket == ws) {
+            ws.game.playerTwo.websocket.send(redirectMessage);
+            ws.game.playerTwo.websocket.close();
+            ws.close();
+        } else if (ws.game.playerTwo.websocket == ws) {
+            ws.game.playerOne.websocket.send(redirectMessage);
+            ws.game.playerOne.websocket.close();
+            ws.close();
         }
 
-        playerOne.websocket.send(JSON.stringify(message));
-        playerTwo.websocket.send(JSON.stringify(message));
+        ongoingGames.splice(ongoingGames.indexOf(gameToClose), 1);
     }
 }
 

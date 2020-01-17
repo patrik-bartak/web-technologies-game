@@ -210,19 +210,19 @@ function isGameWonDiagonal1() {
     return (
         board[0][0] == "red" && board[1][1] == "red" && board[2][2] == "red" && board [3][3] == "red"
     ) || (
-        board[1][0] == "red" && board[2][1] == "red" && board[3][2] == "red" && board [4][3] == "red"
-    ) || (
-        board[2][0] == "red" && board[3][1] == "red" && board[4][2] == "red" && board [5][3] == "red"
-    ) || (
         board[0][1] == "red" && board[1][2] == "red" && board[2][3] == "red" && board [3][4] == "red"
-    ) || (
-        board[1][1] == "red" && board[2][2] == "red" && board[3][3] == "red" && board [4][4] == "red"
-    ) || (
-        board[2][1] == "red" && board[3][2] == "red" && board[4][3] == "red" && board [5][4] == "red"
     ) || (
         board[0][2] == "red" && board[1][3] == "red" && board[2][4] == "red" && board [3][5] == "red"
     ) || (
+        board[1][0] == "red" && board[2][1] == "red" && board[3][2] == "red" && board [4][3] == "red"
+    ) || (
+        board[1][1] == "red" && board[2][2] == "red" && board[3][3] == "red" && board [4][4] == "red"
+    ) || (
         board[1][2] == "red" && board[2][3] == "red" && board[3][4] == "red" && board [4][5] == "red"
+    ) || (
+        board[2][0] == "red" && board[3][1] == "red" && board[4][2] == "red" && board [5][3] == "red"
+    ) || (
+        board[2][1] == "red" && board[3][2] == "red" && board[4][3] == "red" && board [5][4] == "red"
     ) || (
         board[2][2] == "red" && board[3][3] == "red" && board[4][4] == "red" && board [5][5] == "red"
     );
@@ -231,22 +231,22 @@ function isGameWonDiagonal1() {
 //I'm confused, should we do this for yellow as well? !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! (I put the exc. marks so we don't forget to delete this comment afterwards)
 function isGameWonDiagonal2() { // not yet flipped from first diagonal
     return (
-        board[0][5] == "red" && board[1][4] == "red" && board[2][3] == "red" && board [3][2] == "red"
+        board[5][0] == "red" && board[4][1] == "red" && board[3][2] == "red" && board [2][3] == "red"
     ) || (
-        board[0][4] == "red" && board[1][3] == "red" && board[2][2] == "red" && board [1][3] == "red"
+        board[4][0] == "red" && board[3][1] == "red" && board[2][2] == "red" && board [1][3] == "red"
     ) || (
-        board[0][3] == "red" && board[1][2] == "red" && board[2][1] == "red" && board [3][0] == "red"
+        board[3][0] == "red" && board[2][1] == "red" && board[1][2] == "red" && board [0][3] == "red"
     ) || (
-        board[1][5] == "red" && board[2][4] == "red" && board[3][3] == "red" && board [4][2] == "red"
+        board[5][1] == "red" && board[4][2] == "red" && board[3][3] == "red" && board [2][4] == "red"
     ) || (
-        board[1][4] == "red" && board[2][3] == "red" && board[3][2] == "red" && board [4][1] == "red"
+        board[4][1] == "red" && board[3][2] == "red" && board[2][3] == "red" && board [1][4] == "red"
     ) || (
-        board[1][3] == "red" && board[2][2] == "red" && board[3][1] == "red" && board [4][0] == "red"
+        board[3][1] == "red" && board[2][2] == "red" && board[1][3] == "red" && board [0][4] == "red"
     ) || (
-        board[2][5] == "red" && board[3][4] == "red" && board[4][3] == "red" && board [5][2] == "red"
+        board[5][2] == "red" && board[4][3] == "red" && board[3][4] == "red" && board [2][5] == "red"
     ) || (
-        board[2][4] == "red" && board[3][3] == "red" && board[4][2] == "red" && board [5][1] == "red"
+        board[4][2] == "red" && board[3][3] == "red" && board[2][4] == "red" && board [1][5] == "red"
     ) || (
-        board[2][3] == "red" && board[3][2] == "red" && board[4][1] == "red" && board [5][0] == "red"
+        board[3][2] == "red" && board[2][3] == "red" && board[1][4] == "red" && board [0][5] == "red"
     );
 }

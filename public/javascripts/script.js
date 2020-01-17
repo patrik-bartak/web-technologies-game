@@ -19,6 +19,10 @@ var refreshIntervalID;
 $(document).ready(function() {
     var errorSound = new Audio("../audio/errorSound.mp3");
     var chipSound = new Audio("../audio/chipSound.mp3");
+    var gameMusic = new Audio("../audio/epicsaxguy.mp3");
+    gameMusic.loop = true;
+    gameMusic.volume = 0.2;
+    // gameMusic.play();
     // Hide the win message
     $("#loading-popup").hide();
     $("#win-message").hide();
@@ -42,7 +46,7 @@ $(document).ready(function() {
     $(".grid-slot").mousedown(function () {
         let xCoord = parseInt(filterID(this.id)[0]);
         if (nextFree[xCoord] < 6 && turn == playerColour && gameover == false) {
-            chipSound.play();
+            setTimeout(function() {chipSound.play();}, 300);
             let message = {
                 "type": "moveMade",
                 "playerColour": turn,
@@ -94,7 +98,8 @@ function openSocket(name) {
             board = message.board;
             nextFree = message.nextFree;
             turn = message.turn;
-            $("#slot-" + message.recentMove.x + "-" + message.recentMove.y).toggleClass("drop-chip");
+            // $("#slot-" + message.recentMove.x + "-" + message.recentMove.y).toggleClass("drop-chip");
+            $("#slot-" + message.recentMove.x + "-" + message.recentMove.y).toggleClass("bounce-in-top");
             // console.table(board);
             updateTurnDisplay();
             updateBoard();
@@ -190,62 +195,3 @@ function startTimer() {
     }, 1000);
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-function isGameWon() {
-    return isGameWonHorizontal() || isGameWonVertical() || isGameWonDiagonal1() || isGameWonDiagonal1();
-}
-
-function isGameWonDiagonal1() {
-    return (
-        board[0][0] == "red" && board[1][1] == "red" && board[2][2] == "red" && board [3][3] == "red"
-    ) || (
-        board[1][0] == "red" && board[2][1] == "red" && board[3][2] == "red" && board [4][3] == "red"
-    ) || (
-        board[2][0] == "red" && board[3][1] == "red" && board[4][2] == "red" && board [5][3] == "red"
-    ) || (
-        board[0][1] == "red" && board[1][2] == "red" && board[2][3] == "red" && board [3][4] == "red"
-    ) || (
-        board[1][1] == "red" && board[2][2] == "red" && board[3][3] == "red" && board [4][4] == "red"
-    ) || (
-        board[2][1] == "red" && board[3][2] == "red" && board[4][3] == "red" && board [5][4] == "red"
-    ) || (
-        board[0][2] == "red" && board[1][3] == "red" && board[2][4] == "red" && board [3][5] == "red"
-    ) || (
-        board[1][2] == "red" && board[2][3] == "red" && board[3][4] == "red" && board [4][5] == "red"
-    ) || (
-        board[2][2] == "red" && board[3][3] == "red" && board[4][4] == "red" && board [5][5] == "red"
-    );
-}
-
-function isGameWonDiagonal2() { // not yet flipped from first diagonal
-    return (
-        board[0][0] == "red" && board[1][1] == "red" && board[2][2] == "red" && board [3][3] == "red"
-    ) || (
-        board[1][0] == "red" && board[2][1] == "red" && board[3][2] == "red" && board [4][3] == "red"
-    ) || (
-        board[2][0] == "red" && board[3][1] == "red" && board[4][2] == "red" && board [5][3] == "red"
-    ) || (
-        board[0][1] == "red" && board[1][2] == "red" && board[2][3] == "red" && board [3][4] == "red"
-    ) || (
-        board[1][1] == "red" && board[2][2] == "red" && board[3][3] == "red" && board [4][4] == "red"
-    ) || (
-        board[2][1] == "red" && board[3][2] == "red" && board[4][3] == "red" && board [5][4] == "red"
-    ) || (
-        board[0][2] == "red" && board[1][3] == "red" && board[2][4] == "red" && board [3][5] == "red"
-    ) || (
-        board[1][2] == "red" && board[2][3] == "red" && board[3][4] == "red" && board [4][5] == "red"
-    ) || (
-        board[2][2] == "red" && board[3][3] == "red" && board[4][4] == "red" && board [5][5] == "red"
-    );
-}

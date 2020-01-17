@@ -261,8 +261,7 @@ function getOppositeColour(colour) {
 function checkForWin(ws, colour) {
     let game = findGame(ws);
     let oppositeColour = getOppositeColour(colour);
-    return isGameWonHorizontal(game.board, colour, oppositeColour) || isGameWonVertical(game.board, colour, oppositeColour);
-    // || isGameWonDiagonal1() || isGameWonDiagonal1();
+    return isGameWonHorizontal(game.board, colour, oppositeColour) || isGameWonVertical(game.board, colour, oppositeColour) || isGameWonDiagonal1(game.board, colour, oppositeColour) || isGameWonDiagonal2(game.board, colour, oppositeColour);
 };
 
 function isGameWonHorizontal(board, colour, oppositeColour) {
@@ -270,11 +269,11 @@ function isGameWonHorizontal(board, colour, oppositeColour) {
     for (let i = 0; i < 6; i++) {
         for (let j = 0; j < 7; j++) {
             if (board[j][i] == colour) {
-                inc++
+                inc++;
                 if (inc > 3) {
                     return true;
                 }
-            } else if (board[j][i] == oppositeColour) {
+            } else if (board[j][i] != colour) {
                 inc = 0;
             }
         }
@@ -288,11 +287,11 @@ function isGameWonVertical(board, colour, oppositeColour) {
     for (let i = 0; i < 7; i++) {
         for (let j = 0; j < 6; j++) {
             if (board[i][j] == colour) {
-                inc++
+                inc++;
                 if (inc > 3) {
                     return true;
                 }
-            } else if (board[i][j] == oppositeColour) {
+            } else if (board[i][j] != colour) {
                 inc = 0;
             }
         }
@@ -301,6 +300,61 @@ function isGameWonVertical(board, colour, oppositeColour) {
     return false;
 };
 
+function isGameWonDiagonal1(board, colour, oppositeColour) {
+    return (
+        board[0][0] == colour && board[1][1] == colour && board[2][2] == colour && board [3][3] == colour
+    ) || (
+        board[0][1] == colour && board[1][2] == colour && board[2][3] == colour && board [3][4] == colour
+    ) || (
+        board[0][2] == colour && board[1][3] == colour && board[2][4] == colour && board [3][5] == colour
+    ) || (
+        board[1][0] == colour && board[2][1] == colour && board[3][2] == colour && board [4][3] == colour
+    ) || (
+        board[1][1] == colour && board[2][2] == colour && board[3][3] == colour && board [4][4] == colour
+    ) || (
+        board[1][2] == colour && board[2][3] == colour && board[3][4] == colour && board [4][5] == colour
+    ) || (
+        board[2][0] == colour && board[3][1] == colour && board[4][2] == colour && board [5][3] == colour
+    ) || (
+        board[2][1] == colour && board[3][2] == colour && board[4][3] == colour && board [5][4] == colour
+    ) || (
+        board[2][2] == colour && board[3][3] == colour && board[4][4] == colour && board [5][5] == colour
+    ) || (
+        board[3][0] == colour && board[4][1] == colour && board[5][2] == colour && board [6][3] == colour
+    ) || (
+        board[3][1] == colour && board[4][2] == colour && board[5][3] == colour && board [6][4] == colour
+    ) || (
+        board[3][2] == colour && board[4][3] == colour && board[5][4] == colour && board [6][5] == colour
+    );
+}
+
+function isGameWonDiagonal2(board, colour, oppositeColour) { // not yet flipped from first diagonal
+    return (
+        board[6][0] == colour && board[5][1] == colour && board[4][2] == colour && board [3][3] == colour
+    ) || (
+        board[6][1] == colour && board[5][2] == colour && board[4][3] == colour && board [3][4] == colour
+    ) || (
+        board[6][2] == colour && board[5][3] == colour && board[4][4] == colour && board [3][5] == colour
+    ) || (
+        board[5][0] == colour && board[4][1] == colour && board[3][2] == colour && board [2][3] == colour
+    ) || (
+        board[4][0] == colour && board[3][1] == colour && board[2][2] == colour && board [1][3] == colour
+    ) || (
+        board[3][0] == colour && board[2][1] == colour && board[1][2] == colour && board [0][3] == colour
+    ) || (
+        board[5][1] == colour && board[4][2] == colour && board[3][3] == colour && board [2][4] == colour
+    ) || (
+        board[4][1] == colour && board[3][2] == colour && board[2][3] == colour && board [1][4] == colour
+    ) || (
+        board[3][1] == colour && board[2][2] == colour && board[1][3] == colour && board [0][4] == colour
+    ) || (
+        board[5][2] == colour && board[4][3] == colour && board[3][4] == colour && board [2][5] == colour
+    ) || (
+        board[4][2] == colour && board[3][3] == colour && board[2][4] == colour && board [1][5] == colour
+    ) || (
+        board[3][2] == colour && board[2][3] == colour && board[1][4] == colour && board [0][5] == colour
+    );
+}
 
 function sendBoardUpdate(ws, recentmove) {
     let game = findGame(ws);

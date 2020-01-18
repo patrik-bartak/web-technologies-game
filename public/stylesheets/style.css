@@ -1,9 +1,11 @@
-::root {
+:root {
     --color-tuscan: #F7DBA7;
     --color-tumbleweed: #F1AB86;
     --color-deer: #C57B57;
     --color-green: #1E2D2F;
     --color-dark-green: #041F1E;
+    --text-flicker-colour: #0000ff;
+    --title-purple: #b800e6;
 }
 
 img {
@@ -13,6 +15,7 @@ img {
 }
 
 h1 {
+    margin: 20px;
     font-size: 50px;
     color: #C57B57;
 }
@@ -29,16 +32,20 @@ body {
     background-color: #222;
     margin: 0px;
     height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: linear-gradient(90deg, rgb(0, 0, 0, 0.8), rgb(0, 0, 0, 0.4), rgb(0, 0, 0, 0.8)), url("../images/bg3.jpg");
 }
 
 main {
     margin: 0 auto;
-    background-color: #1E2D2F;
-    border-left: #041F1E 4px solid;
-    border-right: #041F1E 4px solid;
+    background-color: rgb(0, 0, 0, 0.5);
+    border-left: rgb(0, 0, 0, 0.1) 4px solid;
+    border-right: rgb(0, 0, 0, 0.1) 4px solid;
     display: flex;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    max-width: 500px;
+    max-width: 40vw;
     height: 100%;
 }
 
@@ -57,7 +64,7 @@ input {
 }
 
 .column div {
-    padding-top: 8vh;
+    margin-top: 20vh;
     text-align: center;
 }
 
@@ -69,15 +76,10 @@ a {
     text-decoration: none;
     background-color: #C57B57;
     color: black;
-    padding: 6px;
-    border-radius: 10px;
-    font-size: 22px;
+    padding: 2vh;
+    border-radius: 2vh;
+    font-size: 4vh;
     border: 4px solid #C57B57;
-}
-
-a:hover {
-    background-color: #C57B57;
-    border: 4px solid #F1AB86;
 }
 
 button {
@@ -89,17 +91,411 @@ button {
     border: 4px solid #C57B57;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-button:hover {
-    border: 4px solid #F1AB86;
-    cursor: pointer;
+
+main h1 {
+    font-family: "Potra";
+    font-weight: 500;
+    font-size: 14vh;
 }
 
+@font-face {
+    font-family: "Panton";
+    src: url("fonts/Panton/PantonDemo-Light.otf");
+}
 
+@font-face {
+    font-family: "Potra";
+    src: url("fonts/Potra.ttf");
+}
 
+.text-flicker-in-glow {
+    animation: text-flicker-in-glow 2s linear both;
+    color: grey;
+}
 
+@keyframes text-flicker-in-glow {
+    0% {
+      opacity: 1;
+    }
+    10% {
+      opacity: 1;
+      text-shadow: none;
+      color: grey;
+      
+    }
+    10.1% {
+      opacity: 1;
+      text-shadow: none;
+      color: grey;
+      
+    }
+    10.2% {
+      opacity: 1;
+      text-shadow: none;
+      color: grey;
+      
+    }
+    20% {
+      opacity: 1;
+      text-shadow: none;
+      color: grey;
+      
+    }
+    20.1% {
+      opacity: 1;
+      text-shadow: 0 0 30px var(--title-purple), 0 0 40px var(--title-purple);
+    color: var(--title-purple);
+    }
+    20.6% {
+      opacity: 1;
+      text-shadow: none;
+      color: grey;
+      
+    }
+    30% {
+      opacity: 1;
+      text-shadow: none;
+      color: grey;
+      
+    }
+    30.1% {
+      opacity: 1;
+      text-shadow: 0 0 30px var(--title-purple), 0 0 40px var(--title-purple);
+        color: var(--title-purple);    }
+    30.5% {
+      opacity: 1;
+      text-shadow: 0 0 30px var(--title-purple), 0 0 40px var(--title-purple);
+        color: var(--title-purple);    }
+    30.6% {
+      opacity: 1;
+      text-shadow: none;
+      color: grey;
+      
+    }
+    45% {
+      opacity: 1;
+      text-shadow: none;
+      color: grey;
+      
+    }
+    45.1% {
+      opacity: 1;
+      text-shadow: 0 0 30px var(--title-purple), 0 0 40px var(--title-purple);
+        color: var(--title-purple);    }
+    50% {
+      opacity: 1;
+      text-shadow: 0 0 30px var(--title-purple), 0 0 40px var(--title-purple);
+        color: var(--title-purple);    }
+    55% {
+      opacity: 1;
+      text-shadow: 0 0 30px var(--title-purple), 0 0 40px var(--title-purple);
+        color: var(--title-purple);    }
+    55.1% {
+      opacity: 1;
+      text-shadow: none;
+      color: grey;
+      
+    }
+    57% {
+      opacity: 1;
+      text-shadow: none;
+      color: grey;
+      
+    }
+    57.1% {
+      opacity: 1;
+      text-shadow: 0 0 30px var(--title-purple), 0 0 40px var(--title-purple);
+        color: var(--title-purple);    }
+    60% {
+      opacity: 1;
+      text-shadow: 0 0 30px var(--title-purple), 0 0 40px var(--title-purple);
+        color: var(--title-purple);    }
+    60.1% {
+      opacity: 1;
+      text-shadow: none;
+      color: grey;
+      
+    }
+    65% {
+      opacity: 1;
+      text-shadow: none;
+      color: grey;
+      
+    }
+    65.1% {
+      opacity: 1;
+      text-shadow: 0 0 30px var(--title-purple), 0 0 40px var(--title-purple);
+        color: var(--title-purple);    }
+    75% {
+      opacity: 1;
+      text-shadow: 0 0 30px var(--title-purple), 0 0 40px var(--title-purple);
+        color: var(--title-purple);    }
+    75.1% {
+      opacity: 1;
+      text-shadow: none;
+      color: grey;
+      
+    }
+    77% {
+      opacity: 1;
+      text-shadow: none;
+      color: grey;
+      
+    }
+    77.1% {
+      opacity: 1;
+      text-shadow: 0 0 30px var(--title-purple), 0 0 40px var(--title-purple);
+        color: var(--title-purple);    }
+    85% {
+      opacity: 1;
+      text-shadow: 0 0 30px var(--title-purple), 0 0 40px var(--title-purple);
+        color: var(--title-purple);    }
+    85.1% {
+      opacity: 1;
+      text-shadow: none;
+      color: grey;
+      
+    }
+    86% {
+      opacity: 1;
+      text-shadow: none;
+      color: grey;
+      
+    }
+    86.1% {
+      opacity: 1;
+      text-shadow: 0 0 30px var(--title-purple), 0 0 40px var(--title-purple);
+        color: var(--title-purple);    }
+    100% {
+      opacity: 1;
+      text-shadow: 0 0 30px var(--title-purple), 0 0 40px var(--title-purple);
+        color: var(--title-purple);
+    }
+  }
+  
+#stats {
+    /* display: none; */
+    color: grey;
+    font-size: 4vh !important;
+    animation: text-flicker-in-glow 2s linear both;
+    animation-delay: 0.5s;
+    font-family: "Panton";
+}
 
-/* .loader {
-    border-top: 16px solid blue;
-    border-bottom: 16px solid blue;
+#start-game {
+    /* display: none; */
+    border-color: rgba(52, 63, 78, 0.4);
+    background-color: rgba(42, 60, 63, 0.4);
+    color: grey;
+    animation: box-flicker-in-glow 2s linear both;
+    animation-delay: 1s;
+    font-family: "Panton";
+}
+/* #start-game:hover {
+    background-color: rgba(3, 65, 75, 1);
 } */
 
+@keyframes box-flicker-in-glow {
+    0% {
+      opacity: 1;
+    }
+    10% {
+      opacity: 1;
+      box-shadow: none;
+      color: grey;
+      border-color: rgba(52, 63, 78, 0.4);
+    background-color: rgba(42, 60, 63, 0.4);
+    }
+    10.1% {
+      opacity: 1;
+      box-shadow: none;
+      color: grey;
+      border-color: rgba(52, 63, 78, 0.4);
+    background-color: rgba(42, 60, 63, 0.4);
+    }
+    10.2% {
+      opacity: 1;
+      box-shadow: none;
+      color: grey;
+      border-color: rgba(52, 63, 78, 0.4);
+    background-color: rgba(42, 60, 63, 0.4);
+    }
+    20% {
+      opacity: 1;
+      box-shadow: none;
+      color: grey;
+      border-color: rgba(52, 63, 78, 0.4);
+    background-color: rgba(42, 60, 63, 0.4);
+    }
+    20.1% {
+      opacity: 1;
+      box-shadow: 0 0 20px var(--title-purple);
+        color: var(--title-purple);
+        border-color: rgba(117, 40, 117, 0.6);
+    background-color: rgba(67, 3, 75, 0.6);
+    }
+    20.6% {
+      opacity: 1;
+      box-shadow: none;
+      color: grey;
+      border-color: rgba(52, 63, 78, 0.4);
+    background-color: rgba(42, 60, 63, 0.4);
+    }
+    30% {
+      opacity: 1;
+      box-shadow: none;
+      color: grey;
+      border-color: rgba(52, 63, 78, 0.4);
+    background-color: rgba(42, 60, 63, 0.4);
+    }
+    30.1% {
+      opacity: 1;
+      box-shadow: 0 0 20px var(--title-purple);
+        color: var(--title-purple);
+    border-color: rgba(117, 40, 117, 0.6);
+    background-color: rgba(67, 3, 75, 0.6);    }
+    30.5% {
+      opacity: 1;
+      box-shadow: 0 0 20px var(--title-purple);
+        color: var(--title-purple);
+    border-color: rgba(117, 40, 117, 0.6);
+    background-color: rgba(67, 3, 75, 0.6);    }
+    30.6% {
+      opacity: 1;
+      box-shadow: none;
+      color: grey;
+      border-color: rgba(52, 63, 78, 0.4);
+    background-color: rgba(42, 60, 63, 0.4);
+    }
+    45% {
+      opacity: 1;
+      box-shadow: none;
+      color: grey;
+      border-color: rgba(52, 63, 78, 0.4);
+    background-color: rgba(42, 60, 63, 0.4);
+    }
+    45.1% {
+      opacity: 1;
+      box-shadow: 0 0 20px var(--title-purple);
+        color: var(--title-purple);
+    border-color: rgba(117, 40, 117, 0.6);
+    background-color: rgba(67, 3, 75, 0.6);    }
+    50% {
+      opacity: 1;
+      box-shadow: 0 0 20px var(--title-purple);
+        color: var(--title-purple);
+    border-color: rgba(117, 40, 117, 0.6);
+    background-color: rgba(67, 3, 75, 0.6);    }
+    55% {
+      opacity: 1;
+      box-shadow: 0 0 20px var(--title-purple);
+        color: var(--title-purple);
+    border-color: rgba(117, 40, 117, 0.6);
+    background-color: rgba(67, 3, 75, 0.6);    }
+    55.1% {
+      opacity: 1;
+      box-shadow: none;
+      color: grey;
+      border-color: rgba(52, 63, 78, 0.4);
+    background-color: rgba(42, 60, 63, 0.4);
+    }
+    57% {
+      opacity: 1;
+      box-shadow: none;
+      color: grey;
+      border-color: rgba(52, 63, 78, 0.4);
+    background-color: rgba(42, 60, 63, 0.4);
+    }
+    57.1% {
+      opacity: 1;
+      box-shadow: 0 0 20px var(--title-purple);
+        color: var(--title-purple);
+    border-color: rgba(117, 40, 117, 0.6);
+    background-color: rgba(67, 3, 75, 0.6);    }
+    60% {
+      opacity: 1;
+      box-shadow: 0 0 20px var(--title-purple);
+        color: var(--title-purple);
+    border-color: rgba(117, 40, 117, 0.6);
+    background-color: rgba(67, 3, 75, 0.6);    }
+    60.1% {
+      opacity: 1;
+      box-shadow: none;
+      color: grey;
+      border-color: rgba(52, 63, 78, 0.4);
+    background-color: rgba(42, 60, 63, 0.4);
+    }
+    65% {
+      opacity: 1;
+      box-shadow: none;
+      color: grey;
+      border-color: rgba(52, 63, 78, 0.4);
+    background-color: rgba(42, 60, 63, 0.4);
+    }
+    65.1% {
+      opacity: 1;
+      box-shadow: 0 0 20px var(--title-purple);
+        color: var(--title-purple);
+    border-color: rgba(117, 40, 117, 0.6);
+    background-color: rgba(67, 3, 75, 0.6);    }
+    75% {
+      opacity: 1;
+      box-shadow: 0 0 20px var(--title-purple);
+        color: var(--title-purple);
+    border-color: rgba(117, 40, 117, 0.6);
+    background-color: rgba(67, 3, 75, 0.6);    }
+    75.1% {
+      opacity: 1;
+      box-shadow: none;
+      color: grey;
+      border-color: rgba(52, 63, 78, 0.4);
+    background-color: rgba(42, 60, 63, 0.4);
+    }
+    77% {
+      opacity: 1;
+      box-shadow: none;
+      color: grey;
+      border-color: rgba(52, 63, 78, 0.4);
+    background-color: rgba(42, 60, 63, 0.4);
+    }
+    77.1% {
+      opacity: 1;
+      box-shadow: 0 0 20px var(--title-purple);
+        color: var(--title-purple);
+    border-color: rgba(117, 40, 117, 0.6);
+    background-color: rgba(67, 3, 75, 0.6);    }
+    85% {
+      opacity: 1;
+      box-shadow: 0 0 20px var(--title-purple);
+        color: var(--title-purple);
+    border-color: rgba(117, 40, 117, 0.6);
+    background-color: rgba(67, 3, 75, 0.6);    }
+    85.1% {
+      opacity: 1;
+      box-shadow: none;
+      color: grey;
+      border-color: rgba(52, 63, 78, 0.4);
+    background-color: rgba(42, 60, 63, 0.4);
+    }
+    86% {
+      opacity: 1;
+      box-shadow: none;
+      color: grey;
+      border-color: rgba(52, 63, 78, 0.4);
+    background-color: rgba(42, 60, 63, 0.4);
+    }
+    86.1% {
+      opacity: 1;
+      box-shadow: 0 0 20px var(--title-purple);
+        color: var(--title-purple);
+    border-color: rgba(117, 40, 117, 0.6);
+    background-color: rgba(67, 3, 75, 0.6);    }
+    100% {
+      opacity: 1;
+      box-shadow: 0 0 20px var(--title-purple);
+        color: var(--title-purple);
+        border-color: rgba(117, 40, 117, 0.6);
+    background-color: rgba(67, 3, 75, 0.6);
+    }
+  }
+  

@@ -4,34 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="stylesheets/gamestyle.css">
     <title>Game</title>
 </head>
 <body>
-    <div class="lobby-popup" id="lobby-popup">
-        <div class="name-popup" id="name-popup">
-            <p style="font-size: 20px; margin-bottom: 10px;">
-                Enter your name
-            </p>
-            <input type="text" name="username" id="name-input">
-            <button onclick="submitName();">Submit</button>
-            <p style="font-size: 20px; margin-bottom: 10px;color: red;" id="name-submit-check"></p>
-        </div>
-        <div id="loading-popup">
-            <p style="font-size: 26px">
-                Searching for available players...
-            </p>
-            <div class="loader"></div>
-    
-            <br>
+    <div class="absolute">
+        <div class="lobby-popup" id="lobby-popup">
+            <div class="name-popup" id="name-popup">
+                <p>
+                    Enter your name
+                </p>
+                <input maxlength="16" type="text" name="username" id="name-input">
+                <br>
+                <br>
+                <br>
+                <a onclick="submitName();">Submit</a>
+            </div>
+            <div class="loading-popup" id="loading-popup">
+                <p>
+                    Searching for available players...
+                </p>
+                <div class="loader"></div>
+        
+                <br>
+            </div>
         </div>
     </div>
     <main class="main-game-screen">
         <div class="left-stat">
             <div class="header">
-                <form action="/">
-                    <button onclick="leaveGame();" type="submit">Leave game</button>
-                </form>
+                <a href="/">Leave game</a>
             </div>
             <p id="time-elapsed" style="font-size: 24px">
             </p>
@@ -45,10 +48,13 @@
             <h1 id="lose-message">
                 You lose the game
             </h1>
+            <h1 id="draw-message">
+                The game is a draw
+            </h1>
         </div>
         <div class="game-screen">
             <div class="turn-switch">
-                <p style="font-size: 24px">
+                <p style="font-size: 4vh">
                     <span id="your-turn">Your turn |</span><span id="opponent-turn">| Opponent's turn</span>
                 </p>
             </div>
@@ -104,43 +110,25 @@
         </div>
         <div class="right-stat">
             <div class="header">
-                <button type="button">Some buttons here?</button>
+                <i id="music-on" class="material-icons">music_note</i>
+                <i id="music-off" class="material-icons">music_off</i>
             </div>
             <div class="player">
                 <p style="font-size: 30px">
-                    <span style="color: red;" id="playerOneName">[You]</span>
+                    <span id="playerOneName">[You]</span>
                 </p>
             </div>
             <div class="vs">
-                <p style="font-size: 24px">
+                <p style="font-size: 24px; color: white;">
                     vs
                 </p>
             </div>
             <div class="opponent">
                 <p style="font-size: 30px">
-                    <span style="color: yellow;" id="playerTwoName">[Opponent]</span>
+                    <span id="playerTwoName">[Opponent]</span>
                 </p>
             </div>
         </div>
-        <!-- <div class="stat-screen">
-            <div>
-                <p style="font-size: 24px">
-                    <span style="border-bottom: red 2px solid;">[You]</span> vs <span style="border-bottom: yellow 2px solid;">[Opponent]</span>
-                </p>
-                <p id="time-elapsed">
-                </p>
-                <p style="font-size: 24px">
-                    Your turn |<span style="color: #444;">| Opponent's turn</span>
-                </p>
-                <br>
-                <br>
-                <br>
-                <br>
-                <h1 id="win-message">
-                    [Your name/Opponent's name] wins the game
-                </h1>
-            </div>
-        </div> -->
     </main>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="javascripts/script.js"></script>

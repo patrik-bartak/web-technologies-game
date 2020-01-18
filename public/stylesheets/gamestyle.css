@@ -1,31 +1,28 @@
-::root {
+:root {
     --color-tuscan: #F7DBA7;
     --color-tumbleweed: #F1AB86;
     --color-deer: #C57B57;
-    --color-green: #1E2D2F;
-    --color-dark-green: #041F1E;
-
-    --primary: #C57B57;
-    --secondary: #F1AB86;
+    --color-green: #222;
+    --color-dark-green: #111;
+    --text-flicker-colour: #0000ff;
+    --title-purple: #b800e6;
 }
 
 /* Game screen bars on either side */
 .game-screen {
     flex: 50%;
     height: 100vh;
-    background-color: #222;
 }
+
 .turn-switch {
     text-align: center;
     color: white;
 }
 
-
-
 .left-stat, .right-stat {
     flex: 25%;
-    padding: 0 0 77.33px 0;
-    background-color: #222;
+    padding: 10px 0 77.33px 0;
+    /* background-color: #222; */
     
     text-align: center;
     /* padding-top: 10vh; */
@@ -58,24 +55,26 @@
 /* Game screen bars on either side */
 .screen-grid {
     margin: 0 auto;
-    height: 460px;
-    width: 536.6px;
-    background-color: #1E2D2F;
-    border: #041F1E 1vh solid;
+    height: 80vh;
+    width: 93.333vh;
+    /* background-color: var(--color-green); */
+    background-color: rgba(30, 30, 30, 0.9);
+    border: rgba(20, 20, 20, 0.7) 0.5vh solid;
 
     display: grid;
-    grid-gap: 14px;
-    padding: 14px;
+    grid-gap: 2.5vh;
+    padding: 2.5vh;
     grid-template-columns: auto auto auto auto auto auto auto;
-    box-shadow: 0px 0px 16px 0px #111;
+    box-shadow: 0 0 2.5vh 0 #111;
 }
 
 .grid-slot {
-    background-color: rgb(38, 48, 49);
-    border: 1px solid black;
+    /* background-color: rgb(32, 32, 32); */
+    background-color: rgba(30, 30, 30, 0.7);
+    border: 1px solid var(--color-dark-green);
     border-radius: 50%;
 
-    box-shadow: inset 0px 0px 16px 0px rgba(0,0,0,0.75);
+    box-shadow: inset 0px 0px 16px 0px rgba(10,10,10,0.75);
 }
 
 
@@ -89,7 +88,16 @@
 body {
     margin: 0px;
     height: 100vh;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: "Panton";
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: linear-gradient(90deg, rgb(0, 0, 0, 0.8), rgb(0, 0, 0, 0.4), rgb(0, 0, 0, 0.8)), url("../images/bg3.jpg");
+}
+
+@font-face {
+    font-family: "Panton";
+    src: url("fonts/Panton/PantonDemo-Light.otf");
 }
 
 button {
@@ -99,36 +107,38 @@ button {
     font-size: 18px;
     border-radius: 10px;
     border: 4px solid #C57B57;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 button:hover {
     border: 4px solid #F1AB86;
     cursor: pointer;
 }
 a {
+    cursor: pointer;
     text-decoration: none;
-    background-color: #C57B57;
-    color: black;
-    padding: 6px;
-    font-size: 18px;
-    border-radius: 10px;
     border: 4px solid #C57B57;
+
+    /* box-shadow: 0 0 20px var(--title-purple); */
+    color: var(--title-purple);
+    border-color: rgba(117, 40, 117, 0.6);
+    background-color: rgba(67, 3, 75, 0.6);
+
+    padding: 2vh;
+    border-radius: 2vh;
+    font-size: 3vh;
 }
 
 a:hover {
-    border: 4px solid #F1AB86;
+    box-shadow: 0 0 20px purple;
 }
 
 main {
     display: flex;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 
 .turn-highlight {
-    color: #444 !important;
+    color: grey !important;
 }
-
 
 
 .drop-chip {
@@ -185,10 +195,11 @@ main {
 
 .loader {
     border: 4px solid #ccc;
-    border-top: 4px solid #C57B57;
+    border-top: 4px solid purple;
     border-radius: 50%;
     width: 30px;
     height: 30px;
+    /* box-shadow: inset 0 0 10px var(--title-purple), 0 0 10px var(--title-purple); */
     animation: spin 1s linear infinite;
     padding: 0 !important;
     margin: 0 auto !important;
@@ -198,15 +209,68 @@ main {
     100% { transform: rotate(360deg); }
 }
 
-.lobby-popup {
-    top: 50%;
-    left: 50%;
-    margin-top: -100px;
-    margin-left: -194px;
-    padding: 30px;
-    border: 1px solid black;
-    background-color: #aaa;
+.absolute {
     position: absolute;
+    left: 50%;
+    top: 50%;
+}
+
+.lobby-popup {
+    /* top: 50%; */
+    /* left: 50%; */
+    /* margin-top: -100px; */
+    /* margin-left: -194px; */
+    left: -50%;
+    top: -100px;
+    padding: 30px;
+    border: 4px solid var(--color-dark-green);
+    background-color: var(--color-green);
+    position: relative;
     z-index: 999;
 }
 
+.lobby-popup input {
+    border: none;
+    /* background-color: gray; */
+    text-align: center;
+    font-family: "Panton";
+}
+
+.name-popup {
+    text-align: center;
+    color: grey;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.name-popup p {
+    color: lightgray;
+}
+
+#name-input {
+    font-size: 22px;
+    /* height: 6vh; */
+}
+
+.loading-popup p {
+    font-size: 22px;
+    color: lightgray;
+}
+
+#music-off {
+    cursor: pointer;
+    color: purple;
+    font-size: 36px;
+}
+#music-on {
+    cursor: pointer;
+    color: purple;
+    font-size: 36px;
+}
+
+#music-off:hover {
+    text-shadow: 0 0 20px purple, 0 0 30px purple, 0 0 40px purple;
+}
+#music-on:hover {
+    text-shadow: 0 0 20px purple, 0 0 30px purple, 0 0 40px purple;
+}

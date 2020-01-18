@@ -11,10 +11,10 @@
     <main>
         <div class="column">
             <div>
-                <h1>
-                    Connect four
+                <h1 class="text-flicker-in-glow">
+                    Connect4
                 </h1>
-                <p style="font-size: 26px">
+                <p style="font-size: 26px" id="stats">
                     <!-- Currently playing: <span class="currently-playing">[Number of players]</span> -->
                     <%= gamesInitialized %>
                     <%if (gamesInitialized != 1) { %>
@@ -22,7 +22,7 @@
                     <% } else { %>
                         game
                     <% } %>
-                    initialized since 
+                    started since 
                     <%= gamesSince %>
                     <br>
                     <%= currentlyPlaying %> 
@@ -43,7 +43,7 @@
                 </p>
                 <br>
                 <br>
-                <a href="game">Start Game</a>
+                <a href="game" id="start-game">Start Game</a>
             </div>
         </div>
     </main>

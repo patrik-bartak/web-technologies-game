@@ -10,8 +10,11 @@ var gameover = false;
 // colour of the player 
 var playerColour;
 var opponentColour;
+// player colours
+var playerOneColour;
+var playerTwoColour;
 // player names
-var playerTwoName;
+var playerOneName;
 var playerTwoName;
 // for stopping the timer
 var refreshIntervalID;
@@ -27,8 +30,20 @@ $(document).ready(function() {
     $("#loading-popup").hide();
     $("#win-message").hide();
     $("#lose-message").hide();
-    $("#your-turn").toggleClass("turn-highlight", true);
-    $("#opponent-turn").toggleClass("turn-highlight", true);
+    $("#draw-message").hide();
+    // $(".screen-grid").hide();
+    $("#music-off").hide();
+    $("#your-turn").toggleClass("turn-highlight", false);
+    $("#opponent-turn").toggleClass("turn-highlight", false);
+
+    $("#music-on").mousedown(function () {
+        $("#music-on").hide();
+        $("#music-off").show();
+    });
+    $("#music-off").mousedown(function () {
+        $("#music-on").show();
+        $("#music-off").hide();
+    });
 
     // Highlight the bottom slot in a column whenever you hover over a slot
     $(".grid-slot").hover(function () {
@@ -110,9 +125,26 @@ function openSocket(name) {
             clearInterval(refreshIntervalID);
             $("#your-turn").toggleClass("turn-highlight", true);
             $("#opponent-turn").toggleClass("turn-highlight", true);
+            if (message.result !== "draw") {
+                showWinningCoords(message.winningCoords);
+            }
+
+            setTimeout(function(){
+                window.location.replace("/");
+            }, 5000);
         }
 
         console.log(JSON.stringify(message));
+    }
+}
+
+function showWinningCoords(winningCoords) {
+    let x;
+    let y;
+    for (let i = 0; i < winningCoords.length; i++) {
+        x = winningCoords[i][0];
+        y = winningCoords[i][1];
+        $("#slot-" + x + "-" + y).css("border-color", "white");
     }
 }
 
@@ -141,6 +173,8 @@ function startGame(message) {
     turn = message.turn;
     playerOneName = message.playerOneName;
     playerTwoName = message.playerTwoName;
+    playerOneColour = message.playerOneColour;
+    playerTwoColour = message.playerTwoColour;
     playerColour = message.playerColour;
     opponentColour = message.opponentColour;
 
@@ -152,21 +186,14 @@ function startGame(message) {
 
 function initializeGameScreen() {
     $("#lobby-popup").hide();
+    $(".screen-grid").show();
     startTimer();
     $("#playerOneName").text(playerOneName);
     $("#playerTwoName").text(playerTwoName);
     $("#your-turn").css("color", playerColour);
     $("#opponent-turn").css("color", opponentColour);
-}
-
-function leaveGame() {
-    if (socket !== undefined) {
-        let message = {
-            "type": "closeGame"
-        };
-        socket.send(JSON.stringify(message));
-        console.log("Sending closeGame");
-    }
+    $("#playerOneName").css("color", playerOneColour);
+    $("#playerTwoName").css("color", playerTwoColour);
 }
 
 function submitName() {
@@ -180,7 +207,12 @@ function submitName() {
 
 function nameOk() {
     if ($("#name-input").val() == "") {
-        $("#name-submit-check").text("Field cannot be left blank");
+        $("#name-popup p").text("Field cannot be left blank");
+        $("#name-popup p").css("color", "red");
+        setTimeout(function(){
+            $("#name-popup p").text("Enter your name");
+            $("#name-popup p").css("color", "white");
+        }, 1000);
         return false;
     } else {
         return true;

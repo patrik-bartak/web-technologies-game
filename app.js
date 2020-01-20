@@ -11,8 +11,8 @@ const Game = require("./game");
 var ongoingGames = [];
 var playerQueue = [];
 
-var playerOneColour = "red";
-var playerTwoColour = "yellow";
+var playerOneColour = "#b800e6";
+var playerTwoColour = "#008cff";
 
 // I think I cannot use maps?
 // var x = new Map();

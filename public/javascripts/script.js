@@ -19,10 +19,11 @@ var playerTwoName;
 // for stopping the timer
 var refreshIntervalID;
 // Once the document has finished loading
+var gameMusic;
 $(document).ready(function() {
     var errorSound = new Audio("../audio/errorSound.mp3");
     var chipSound = new Audio("../audio/chipSound.mp3");
-    var gameMusic = new Audio("../audio/epicsaxguy.mp3");
+    gameMusic = new Audio("../audio/bgMusic.mp3");
     gameMusic.loop = true;
     gameMusic.volume = 0.2;
     // gameMusic.play();
@@ -31,16 +32,18 @@ $(document).ready(function() {
     $("#win-message").hide();
     $("#lose-message").hide();
     $("#draw-message").hide();
-    // $(".screen-grid").hide();
+    $(".screen-grid").hide();
     $("#music-off").hide();
     $("#your-turn").toggleClass("turn-highlight", false);
     $("#opponent-turn").toggleClass("turn-highlight", false);
 
     $("#music-on").mousedown(function () {
+        gameMusic.volume = 0;
         $("#music-on").hide();
         $("#music-off").show();
     });
     $("#music-off").mousedown(function () {
+        gameMusic.volume = 0.2;
         $("#music-on").show();
         $("#music-off").hide();
     });

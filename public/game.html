@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="stylesheets/gamestyle.css">
     <title>Game</title>
 </head>
-<body>
+<body id="body-id">
     <div class="absolute">
         <div class="lobby-popup" id="lobby-popup">
             <div class="name-popup" id="name-popup">
@@ -55,7 +55,7 @@
         <div class="game-screen">
             <div class="turn-switch">
                 <p style="font-size: 4vh">
-                    <span id="your-turn">Your turn |</span><span id="opponent-turn">| Opponent's turn</span>
+                    <span id="your-turn">Your turn</span><span id="opponent-turn">Opponent's turn</span>
                 </p>
             </div>
             <div class="screen-grid">
@@ -110,9 +110,12 @@
         </div>
         <div class="right-stat">
             <div class="header">
-                <span>Music: </span>
+                <!-- <span>Music: </span> -->
                 <i id="music-on" class="material-icons">music_note</i>
                 <i id="music-off" class="material-icons">music_off</i>
+                <!-- <span>Fullscreen: </span> -->
+                <i id="fullscreen-on" class="material-icons">fullscreen</i>
+                <i id="fullscreen-off" class="material-icons">fullscreen_exit</i>
             </div>
             <div class="player">
                 <p style="font-size: 30px">
@@ -131,6 +134,9 @@
             </div>
         </div>
     </main>
+    <div class="small-screen-alert">
+        Your screen is too small, please use a larger screen
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="javascripts/script.js"></script>
 </body>

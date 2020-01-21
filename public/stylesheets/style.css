@@ -254,7 +254,7 @@ main h1 {
       opacity: 1;
       text-shadow: none;
       color: grey;
-      
+
     }
     86% {
       opacity: 1;
@@ -300,11 +300,11 @@ main h1 {
       opacity: 1;
     }
     10% {
-      opacity: 1;
-      box-shadow: none;
-      color: grey;
-      border-color: rgba(52, 63, 78, 0.4);
-    background-color: rgba(42, 60, 63, 0.4);
+		opacity: 1;
+		box-shadow: none;
+		color: grey;
+      	border-color: rgba(52, 63, 78, 0.4);
+    	background-color: rgba(42, 60, 63, 0.4);
     }
     10.1% {
       opacity: 1;
@@ -496,6 +496,59 @@ main h1 {
         color: var(--title-purple);
         border-color: rgba(117, 40, 117, 0.6);
     background-color: rgba(67, 3, 75, 0.6);
-    }
+  }
+}
+
+#num-visited {
+	position: absolute; 
+	top: 0; 
+	left: 0; 
+	color: grey;
+	transition: 0.2s linear;
+}
+
+/* #num-visited:fullscreen {
+	color: blue;
+} */
+
+#num-visited:hover {
+	color: green;
+}
+
+#num-visited:active {
+	color: red;
+}
+
+#num-visited::before {
+	content: "Site visited ";
+}
+
+#num-visited::after {
+	content: " times.";
+}
+
+.small-screen-alert {
+	padding: 40px;
+	text-align: center;
+	display: none;
+}
+
+@media only screen and (max-width: 1366px) {
+  body {
+    background-color: white;
+    background-image: none;
+  }
+
+  #num-visited {
+    display: none;
   }
   
+  main {
+    display: none;
+  }
+
+  .small-screen-alert {
+    display: block;
+  }
+}
+

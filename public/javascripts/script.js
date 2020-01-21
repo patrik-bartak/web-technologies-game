@@ -18,8 +18,10 @@ var playerOneName;
 var playerTwoName;
 // for stopping the timer
 var refreshIntervalID;
-// Once the document has finished loading
+// game music
 var gameMusic;
+
+// Once the document has finished loading
 $(document).ready(function() {
     var errorSound = new Audio("../audio/errorSound.mp3");
     var chipSound = new Audio("../audio/chipSound.mp3");
@@ -34,6 +36,7 @@ $(document).ready(function() {
     $("#draw-message").hide();
     $(".screen-grid").hide();
     $("#music-off").hide();
+    $("#fullscreen-off").hide();
     $("#your-turn").toggleClass("turn-highlight", false);
     $("#opponent-turn").toggleClass("turn-highlight", false);
 
@@ -46,6 +49,17 @@ $(document).ready(function() {
         gameMusic.volume = 0.2;
         $("#music-on").show();
         $("#music-off").hide();
+    });
+
+    $("#fullscreen-on").mousedown(function () {
+        toggleFullscreen();
+        $("#fullscreen-on").hide();
+        $("#fullscreen-off").show();
+    });
+    $("#fullscreen-off").mousedown(function () {
+        toggleFullscreen();
+        $("#fullscreen-on").show();
+        $("#fullscreen-off").hide();
     });
 
     // Highlight the bottom slot in a column whenever you hover over a slot
@@ -111,6 +125,7 @@ function openSocket(name) {
         if (message.type == "startGame") {
             startGame(message);
         } else if (message.type == "redirectToRoot") {
+            alert("Connection lost with other player");
             window.location.replace("/");
         } else if (message.type == "updateBoard") {
             board = message.board;
@@ -229,4 +244,30 @@ function startTimer() {
         $("#time-elapsed").html("Time elapsed: " + pad(parseInt(++sec/60,10)) + ":" + pad(sec%60));
     }, 1000);
 };
+
+function toggleFullscreen(elem) {
+    elem = elem || document.documentElement;
+    if (!document.fullscreenElement && !document.mozFullScreenElement &&
+        !document.webkitFullscreenElement && !document.msFullscreenElement) {
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+            elem.msRequestFullscreen();
+        } else if (elem.mozRequestFullScreen) {
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) {
+            elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+        }
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        }
+    }
+}
 

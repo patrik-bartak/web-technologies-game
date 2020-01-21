@@ -36,7 +36,9 @@
     <main class="main-game-screen">
         <div class="left-stat">
             <div class="header">
-                <a href="/">Leave game</a>
+                <form action="/">
+                    <button onclick="leaveGame();" type="submit">Leave game</button>
+                </form>
             </div>
             <p id="time-elapsed" style="font-size: 24px">
             </p>
@@ -124,20 +126,39 @@
             </div>
             <div class="player">
                 <p style="font-size: 30px">
-                    <span id="playerOneName">[You]</span>
+                    <span style="color: rgba(88, 194, 243, 0.473);" id="playerOneName">[You]</span>
                 </p>
             </div>
             <div class="vs">
-                <p style="font-size: 24px; color: white;">
+                <p style="font-size: 24px">
                     vs
                 </p>
             </div>
             <div class="opponent">
                 <p style="font-size: 30px">
-                    <span id="playerTwoName">[Opponent]</span>
+                    <span style="color: rgb(168, 82, 218);" id="playerTwoName">[Opponent]</span>
                 </p>
             </div>
         </div>
+        <!-- <div class="stat-screen">
+            <div>
+                <p style="font-size: 24px">
+                    <span style="border-bottom: red 2px solid;">[You]</span> vs <span style="border-bottom: yellow 2px solid;">[Opponent]</span>
+                </p>
+                <p id="time-elapsed">
+                </p>
+                <p style="font-size: 24px">
+                    Your turn |<span style="color: #444;">| Opponent's turn</span>
+                </p>
+                <br>
+                <br>
+                <br>
+                <br>
+                <h1 id="win-message">
+                    [Your name/Opponent's name] wins the game
+                </h1>
+            </div>
+        </div> -->
     </main>
     <div class="small-screen-alert">
         Your screen is too small, please use a larger screen

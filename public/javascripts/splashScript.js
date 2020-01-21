@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
     if (document.cookie) {
         document.cookie = "numVisits=" + (parseInt(document.cookie.split("=")[1]) + 1) + "; expires=Fri, 29 Dec 2069 12:00:00 UTC";

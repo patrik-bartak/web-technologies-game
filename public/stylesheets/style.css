@@ -533,6 +533,7 @@ main h1 {
 	display: none;
 }
 
+
 @media only screen and (max-width: 1366px) {
   body {
     background-color: white;

@@ -21,6 +21,7 @@ var refreshIntervalID;
 // game music
 var gameMusic;
 
+
 // Once the document has finished loading
 $(document).ready(function() {
     var errorSound = new Audio("../audio/errorSound.mp3");

@@ -10,14 +10,9 @@ const Game = require("./game");
 
 var ongoingGames = [];
 var playerQueue = [];
-
 var playerOneColour = "#b800e6";
 var playerTwoColour = "#008cff";
 
-// I think I cannot use maps?
-// var x = new Map();
-
-// var websocket = {"websocket": game};
 // array of websockets associated with the game
 var websocketGamePairs = [];
 
@@ -459,4 +454,5 @@ function findGame(ws) { // Returns the game associated with the provided websock
 
 
 server.listen(3000);
+
 

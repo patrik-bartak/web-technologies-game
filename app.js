@@ -111,7 +111,7 @@ wss.on("connection", function(ws) {
         let gameClose = findGame(ws);
         if (gameClose !== undefined) {
             let redirectMessage = JSON.stringify({
-                "type": "connectionLost"
+                "type": "redirectToRoot"
             })
             console.log("THE CLOSED WEBSOCKET BELONGED TO A GAME");
 
@@ -382,8 +382,8 @@ function moveMade(ws, message) {
 
 
 function newPlayer(ws, message) {
-    console.log("Creating new player object - name: " + message.playerName);
-    let newPlayer = new Player(nextFreePlayerID, message.playerName, ws, "waiting", undefined); // Create new player
+    console.log("Creating new player object - name: " + message.data[0]);
+    let newPlayer = new Player(nextFreePlayerID, message.data[0], ws, "waiting", undefined); // Create new player
     websocketPlayerPairs.push({
         "websocket": ws,
         "player": newPlayer

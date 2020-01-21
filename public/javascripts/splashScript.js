@@ -1,10 +1,11 @@
 $(document).ready(function() {
     if (document.cookie) {
-        document.cookie = "numVisits=" + (parseInt(returnCookies().numVisits) + 1) + "; expires=Fri, 29 Dec 2069 12:00:00 UTC";
+        document.cookie = "numVisits=" + (parseInt(document.cookie.split("=")[1]) + 1) + "; expires=Fri, 29 Dec 2069 12:00:00 UTC";
     } else {
         document.cookie = "numVisits=1; expires=Fri, 29 Dec 2069 12:00:00 UTC";
     }
-    $("#num-visited").text(returnCookies().numVisits);
+
+    $("#num-visited").text(document.cookie.split("=")[1]);
 
     var neonBuzz = new Audio("../audio/neonBuzz.mp3");
     neonBuzz.play();

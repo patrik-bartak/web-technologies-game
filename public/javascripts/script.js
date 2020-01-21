@@ -28,13 +28,12 @@ $(document).ready(function() {
     gameMusic = new Audio("../audio/bgMusic.mp3");
     gameMusic.loop = true;
     gameMusic.volume = 0.2;
-    gameMusic.play();
+    // gameMusic.play();
     // Hide the win message
     $("#loading-popup").hide();
     $("#win-message").hide();
     $("#lose-message").hide();
     $("#draw-message").hide();
-    $("#conn-message").hide();
     $(".screen-grid").hide();
     $("#music-off").hide();
     $("#fullscreen-off").hide();
@@ -125,11 +124,9 @@ function openSocket(name) {
 
         if (message.type == "startGame") {
             startGame(message);
-        } else if (message.type == "connectionLost") {
-            $("#conn-message").show();
-            setTimeout(function(){
-                window.location.replace("/");
-            }, 5000);
+        } else if (message.type == "redirectToRoot") {
+            alert("Connection lost with other player");
+            window.location.replace("/");
         } else if (message.type == "updateBoard") {
             board = message.board;
             nextFree = message.nextFree;
@@ -172,7 +169,7 @@ function showWinningCoords(winningCoords) {
 function sendName(socket, name) {
     let message = {
         "type": "newPlayer",
-        "playerName": name
+        "data": [name]
     };
     socket.send(JSON.stringify(message));
     console.log("Sending the user's name");

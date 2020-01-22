@@ -125,16 +125,14 @@ function openSocket(name) {
 
         if (message.type == "startGame") {
             startGame(message);
-        } else if (message.type == "redirectToRoot") {
+        } else if (message.type == "connectionLost") {
             alert("Connection lost with other player");
             window.location.replace("/");
         } else if (message.type == "updateBoard") {
             board = message.board;
             nextFree = message.nextFree;
             turn = message.turn;
-            // $("#slot-" + message.recentMove.x + "-" + message.recentMove.y).toggleClass("drop-chip");
             $("#slot-" + message.recentMove.x + "-" + message.recentMove.y).toggleClass("bounce-in-top");
-            // console.table(board);
             updateTurnDisplay();
             updateBoard();
         } else if (message.type == "gameOver") {

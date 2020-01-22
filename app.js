@@ -77,12 +77,16 @@ app.get("/game/", function(req, res) {
 
 // WEBSOCKET //////////////////////////////////////////////////////////////////////////////////////
 
+// CREATING THE WEBSOCKET CODE BELOW 
 const wss = new websocket.Server({server});
-
 wss.on("connection", function(ws) {
     ws.id = nextFreeWebSocketID++;
     console.log("Connection established with new websocket");
     
+    // THIS CODE EXECUTES WHEN A MESSAGE IS RECEIVED BY THE SERVER
+    // WHAT DOES IT DO?
+    //      - FIGURES WHAT MESSAGE TYPE IT IS 
+    //      - PERFORMS THE APPROPRIATE ACTION
     ws.on("message", function incoming(messageString) {
         console.log("Message received");
         let message = JSON.parse(messageString); // String to object
@@ -101,12 +105,17 @@ wss.on("connection", function(ws) {
         }
     });
 
+    // THIS CODE EXECUTES WHEN ONE OF THE WEBSOCKETS IS CLOSED
+    // WHAT DOES IT DO?
+    //      - FINDS THE GAME/PLAYER THAT BELONGS TO THE WEBSOCKET THAT HAS BEEN CLOSED
+    //      - USES THAT TO FIND THE OTHER PLAYER THAT IS STILL IN THE GAME
+    //      - SENDS A REDIRECT MESSAGE
     ws.on("close", function close(messageString) {
         console.log("A WEBSOCKET HAS CLOSED");
         let gameClose = findGame(ws);
         if (gameClose !== undefined) {
             let redirectMessage = JSON.stringify({
-                "type": "redirectToRoot"
+                "type": "connectionLost"
             })
             console.log("THE CLOSED WEBSOCKET BELONGED TO A GAME");
 

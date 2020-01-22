@@ -64,7 +64,7 @@ input {
 }
 
 .column div {
-    margin-top: 20vh;
+    margin-top: 14vh;
     text-align: center;
 }
 
@@ -95,7 +95,7 @@ button {
 main h1 {
     font-family: "Potra";
     font-weight: 500;
-    font-size: 14vh;
+    font-size: 10vh;
 }
 
 @font-face {

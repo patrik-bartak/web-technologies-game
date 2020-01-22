@@ -29,7 +29,7 @@ $(document).ready(function() {
     gameMusic = new Audio("../audio/bgMusic.mp3");
     gameMusic.loop = true;
     gameMusic.volume = 0.2;
-    // gameMusic.play();
+    gameMusic.play();
     // Hide the win message
     $("#loading-popup").hide();
     $("#win-message").hide();

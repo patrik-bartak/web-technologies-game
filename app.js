@@ -60,7 +60,6 @@ app.use(function(req, res, next) {
 	next(); // call on to next component
 });
 
-
 // setting a route to return splash.html when entering the root directory
 app.get("/", function(req, res) {
     res.render("splash.ejs", {

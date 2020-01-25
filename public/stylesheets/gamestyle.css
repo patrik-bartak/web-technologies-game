@@ -323,7 +323,7 @@ main {
     display: none;
   }
   
-  @media only screen and (max-width: 1366px) {
+  @media only screen and (max-width: 800px) {
     body {
       background-color: white;
       background-image: none;

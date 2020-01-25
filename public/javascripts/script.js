@@ -114,7 +114,7 @@ function filterID(id) {
 var socket;
 
 function openSocket(name) {
-    socket = new WebSocket("wss://https://neon-disc-warfare.herokuapp.com");
+    socket = new WebSocket("wss://neon-disc-warfare.herokuapp.com");
 
     socket.onopen = function(){
         sendName(socket, name);
